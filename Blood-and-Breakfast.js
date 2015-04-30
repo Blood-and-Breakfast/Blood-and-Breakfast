@@ -1,13 +1,12 @@
 if (Meteor.isClient) {
 
+  Deps.autorun(function(){
 
-  Template.body.helpers({
-    username: function () {
-      if (Meteor.user().username) {
-        return true;
-      } else {
-        return false;
-      }
+  });
+
+  Template.everything.helpers({
+    giraffe: function () {
+      return "Giraffe";
     }
   });
 

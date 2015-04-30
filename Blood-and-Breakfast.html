@@ -10,7 +10,8 @@
 
 <template name="everything">
   <h1>Zombie Vampire Bus Battle</h1>
-  {{#if username}}
+  <span>Username: {{currentUser.username}}</span>
+  {{#if currentUser}}
     {{>gameSelectPage}}
   {{else}}
     {{>loginPage}}
