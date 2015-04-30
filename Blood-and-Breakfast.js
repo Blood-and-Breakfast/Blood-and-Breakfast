@@ -1,3 +1,4 @@
+Markers = new Mongo.Collection('markers');  
 Stops = new Mongo.Collection("stops");
 Players = new Mongo.Collection("players");
 Buses = new Mongo.Collection("buses");
@@ -82,5 +83,6 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
+
 
 
