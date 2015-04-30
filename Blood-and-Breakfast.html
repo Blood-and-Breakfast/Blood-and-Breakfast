@@ -4,12 +4,13 @@
 </head>
 
 <body>
-  <div class="container">
+
   {{>everything}}
-  </div>
+
 </body>
 
 <template name="everything">
+<div id="main">
 <header>
   <h1>Zombie Vampire Bus Battle</h1>
   {{>loginButtons}}
@@ -25,6 +26,7 @@
   {{else}}
     {{>loginPage}}
   {{/if}}
+  </div>
 </template>
 
 <template name="loginPage">

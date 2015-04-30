@@ -1,21 +1,14 @@
 /* CSS declarations go here */
-html{
-  width: 100%;
-  height: 100%;
-}
-body{
-  width:100%;
-  height: 100%;
-}
 
-#container{
 
+#main{
+  border:2px solid black;
   width: 100%;
   height: 100%;
 }
 #map{
   display: inline-block;
-  width: 100%;
-  height: 75%;
+  width: 94%;
+  height: 50%;
   border: 2px solid black;
 }

@@ -8,14 +8,39 @@ if (Meteor.isClient) {
 
   Meteor.startup(function() {
     Geolocation.currentLocation();
+    //get window info
+
   });
 
   Deps.autorun(function(){
 
   });
 
+  Tracker.autorun(function(){
+
+  });
+
+  Template.everything.rendered = function(){
+    setBodyToWindowSize();
+  }
+
+  Template.everything.created = function() {
+    $(window).resize(function() {
+      setBodyToWindowSize();
+    });
+  };
+
+  var setBodyToWindowSize = function(){
+    var theBody = $("body");
+    theBody.height($(window).height());
+    theBody.width($(window).width());
+  }
+
   Template.registerHelper("playerLoc", function(){
-    return Geolocation.currentLocation();
+    var loc = Geolocation.currentLocation()
+    var locX = loc.coords.latitude;
+    var locY = loc.coords.longitude;
+    return "" + locX + "," + locY;
   })
 
   Template.registerHelper("session", function(key){
