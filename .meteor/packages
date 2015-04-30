@@ -13,3 +13,4 @@ accounts-facebook
 accounts-google
 mdg:geolocation
 twbs:bootstrap
+dburles:google-maps

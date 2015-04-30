@@ -26,3 +26,8 @@
   height: 50%;
   border: 2px solid black;
 }
+.map-container {
+  width: 100%;
+  max-width: 100%;
+  height: 500px;
+}/* CSS declarations go here */
