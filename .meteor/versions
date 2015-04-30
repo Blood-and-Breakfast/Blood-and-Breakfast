@@ -34,6 +34,7 @@ less@1.0.14
 livedata@1.0.13
 localstorage@1.0.3
 logging@1.0.7
+mdg:geolocation@1.0.2
 meteor@1.1.6
 meteor-platform@1.2.2
 minifiers@1.1.5
@@ -59,6 +60,7 @@ spacebars-compiler@1.0.6
 srp@1.0.3
 templating@1.1.1
 tracker@1.0.7
+twbs:bootstrap@3.3.4
 ui@1.0.6
 underscore@1.0.3
 url@1.0.4

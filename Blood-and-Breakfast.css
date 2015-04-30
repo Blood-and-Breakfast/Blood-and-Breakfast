@@ -1,21 +1,28 @@
 /* CSS declarations go here */
-html{
+
+#topBar{
+  height: auto;
   width: 100%;
-  height: 100%;
+  background-color: black;
+  color: white;
 }
-body{
-  width:100%;
-  height: 100%;
+#topBarRight{
+  display:inline-block;
+  width: 30%;
+}
+#topBarLeft{
+  display:inline-block;
+  width: 70%;
 }
 
-#container{
-
+#main{
+  border:2px solid black;
   width: 100%;
   height: 100%;
 }
 #map{
   display: inline-block;
-  width: 100%;
-  height: 75%;
+  width: 94%;
+  height: 50%;
   border: 2px solid black;
 }

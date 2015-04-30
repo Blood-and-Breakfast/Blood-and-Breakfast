@@ -4,29 +4,47 @@
 </head>
 
 <body>
-  <div class="container">
+
   {{>everything}}
-  </div>
+
 </body>
 
 <template name="everything">
-  <h1>Zombie Vampire Bus Battle</h1>
+<div id="main">
+  <div id="topBar">
+    <div id="topBarLeft">
+      <h1>Zombie Vampire Bus Battle</h1>
+    </div>
+    <div id="topBarRight">{{>loginButtons}}</div>
+  </div>
+
+
+  <span>LOC: {{playerLoc}}</span>
   <span>Username: {{currentUser.username}}</span>
   {{#if currentUser}}
-    {{#if teamName}}
+    {{#if session "team"}}
       {{>gamePlayPage}}
     {{else}}
       {{>gameSelectPage}}
     {{/if}}
   {{else}}
-    {{>loginButtons}}
+    {{>loginPage}}
   {{/if}}
+  </div>
 </template>
 
 <template name="loginPage">
   <h1>Login Page</h1>
+  <h2>cause you are not logged in</h2>
+</template>
+
+<template name="options">
+  <div id="options">
+  </div>
   {{>loginButtons}}
 </template>
+
+
 
 <template name="gameSelectPage">
   <h1>Game Select Page</h1>
@@ -36,6 +54,7 @@
 
 <template name="gamePlayPage">
   <h1>Game Play Page</h1>
+  <h2>TEAM: {{session "team"}}</h2>
   <div id="map">THE MAP GOES HERE</div>
   <button>BITE PEOPLE AT BUS STOP</button>
   <button>OPTIONS</button>
