@@ -3,12 +3,34 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+  <div class="container">
+  {{>everything}}
+  </div>
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="everything">
+  <h1>Zombie Vampire Bus Battle</h1>
+  {{#if username}}
+    {{>gameSelectPage}}
+  {{else}}
+    {{>loginPage}}
+  {{/if}}
+</template>
+
+<template name="loginPage">
+  <h1>Login Page</h1>
+  {{>loginButtons}}
+</template>
+
+<template name="gameSelectPage">
+  <h1>Game Select Page</h1>
+  <h2>Zombies</h2>
+  <h2>Vampires</h2>
+</template>
+
+<template name="gamePlayPage">
+  <h1>Game Play Page</h1>
+  <div id="map">THE MAP</div>>
+  <button>BITE</button>
+  <button>OPTIONS</button>
 </template>
