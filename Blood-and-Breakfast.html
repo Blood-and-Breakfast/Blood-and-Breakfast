@@ -1,3 +1,4 @@
+
 <head>
   <title>Blood-and-Breakfast</title>
 </head>
@@ -12,9 +13,13 @@
   <h1>Zombie Vampire Bus Battle</h1>
   <span>Username: {{currentUser.username}}</span>
   {{#if currentUser}}
-    {{>gameSelectPage}}
+    {{#if teamName}}
+      {{>gamePlayPage}}
+    {{else}}
+      {{>gameSelectPage}}
+    {{/if}}
   {{else}}
-    {{>loginPage}}
+    {{>loginButtons}}
   {{/if}}
 </template>
 
@@ -25,13 +30,13 @@
 
 <template name="gameSelectPage">
   <h1>Game Select Page</h1>
-  <h2>Zombies</h2>
-  <h2>Vampires</h2>
+  <button class="playZombies">Zombies</button>
+  <button class="playVampires">Vampires</button>
 </template>
 
 <template name="gamePlayPage">
   <h1>Game Play Page</h1>
-  <div id="map">THE MAP</div>>
-  <button>BITE</button>
+  <div id="map">THE MAP GOES HERE</div>
+  <button>BITE PEOPLE AT BUS STOP</button>
   <button>OPTIONS</button>
 </template>
