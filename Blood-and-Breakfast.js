@@ -1,8 +1,26 @@
+Stops = new Mongo.Collection("stops");
+Players = new Mongo.Collection("players");
+Buses = new Mongo.Collection("buses");
+
+
+
 if (Meteor.isClient) {
+
+  Meteor.startup(function() {
+    Geolocation.currentLocation();
+  });
 
   Deps.autorun(function(){
 
   });
+
+  Template.registerHelper("playerLoc", function(){
+    return Geolocation.currentLocation();
+  })
+
+  Template.registerHelper("session", function(key){
+    return Session.get(key);
+  })
 
   Template.everything.helpers({
     giraffe: function () {
@@ -25,6 +43,7 @@ if (Meteor.isClient) {
   });
 
   var setTeamName = function(name){
+    debugger;
     Session.set("team", name);
   }
 
