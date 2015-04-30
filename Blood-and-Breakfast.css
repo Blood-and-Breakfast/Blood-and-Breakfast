@@ -1,5 +1,19 @@
 /* CSS declarations go here */
 
+#topBar{
+  height: auto;
+  width: 100%;
+  background-color: black;
+  color: white;
+}
+#topBarRight{
+  display:inline-block;
+  width: 30%;
+}
+#topBarLeft{
+  display:inline-block;
+  width: 70%;
+}
 
 #main{
   border:2px solid black;

@@ -68,7 +68,6 @@ if (Meteor.isClient) {
   });
 
   var setTeamName = function(name){
-    debugger;
     Session.set("team", name);
   }
 

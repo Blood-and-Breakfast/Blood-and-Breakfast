@@ -11,10 +11,14 @@
 
 <template name="everything">
 <div id="main">
-<header>
-  <h1>Zombie Vampire Bus Battle</h1>
-  {{>loginButtons}}
-  </header>
+  <div id="topBar">
+    <div id="topBarLeft">
+      <h1>Zombie Vampire Bus Battle</h1>
+    </div>
+    <div id="topBarRight">{{>loginButtons}}</div>
+  </div>
+
+
   <span>LOC: {{playerLoc}}</span>
   <span>Username: {{currentUser.username}}</span>
   {{#if currentUser}}
