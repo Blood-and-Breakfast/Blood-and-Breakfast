@@ -13,11 +13,8 @@ accounts-google
 mdg:geolocation
 twbs:bootstrap
 dburles:google-maps
-<<<<<<< HEAD
 http
 peerlibrary:xml2js
 underscore
 ian:accounts-ui-bootstrap-3
-=======
 msavin:mongol
->>>>>>> Adds mongol package.
