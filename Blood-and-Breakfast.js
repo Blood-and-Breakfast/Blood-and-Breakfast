@@ -83,6 +83,7 @@ if (Meteor.isClient) {
     }else{
       Session.set("isZombie", false);
     }
+    setMapStyleToTeam(Session.get('isZombie'));
   }
 
 
