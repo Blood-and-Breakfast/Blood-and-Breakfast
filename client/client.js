@@ -6,22 +6,95 @@
 if (Meteor.isClient) {
 
 Meteor.startup(function() {
-  GoogleMaps.load();
+  theMap = GoogleMaps.load();
 });
+
+stylesArray =
+  [
+    {
+      featureType: 'all',
+      elementType: 'geometry',
+      stylers: [
+        { "visibility": "on" },
+        { "hue": "#0000ff" },
+        { "weight": 0.5 },
+        { "gamma": 0.31 },
+        { "saturation": 100 },
+        { "lightness": -7 }
+      ]
+    },
+    {
+      featureType: 'road',
+      elementType: 'geometry',
+      stylers: [
+        { "visibility": "on" },
+        { "hue": "#0000ff" },
+        { "weight": .75 },
+        { "gamma": 0.31 },
+        { "saturation": 100 },
+        { "lightness": -7 }
+      ]
+    },
+    {
+      featureType: 'all',
+      elementType: 'labels',
+       "stylers": [
+        { "visibility": "off" },
+        { "hue": "#000000" },
+        { "weight": 0.75 },
+        { "gamma": 0.31 },
+        { "saturation": 100 },
+        { "lightness": -7 }
+      ]
+    }
+  ];
+
+  setMapStyleToTeam = function(){
+
+    var hue = "#ff0000";
+    if(Session.get("isZombie")){
+      hue = "#00ff00";
+    }
+
+    stylesArray[0].stylers[1].hue = hue;
+    stylesArray[1].stylers[1].hue = hue;
+    stylesArray[2].stylers[1].hue = hue;
+debugger;
+    if(theMap){
+      theMap.setOptions({styles: stylesArray});
+    }
+
+  }
 
 Template.map.helpers({
   mapOptions: function() {
+    console.log("MAP OPTIONS");
+    setMapStyleToTeam();
     if (GoogleMaps.loaded()) {
       return {
         center: new google.maps.LatLng(37.7577,-122.4376), //approx. center of SF
-        zoom: 12
+        zoom: 15,
+        styles: stylesArray,
+        disableDefaultUI: true,
+        disableDoubleClickZoom: true,
+        keyboardShortcuts: false,
+        //draggableCursor: "path",
+        minZoom: 12,
+        //maxZoom: 12,
+        //noClear: true,
+        overviewMapControl: false,
+        mapTypeControlOptions: {}
       };
     }
   }
 });
 
+
 Template.map.onCreated(function() {
+
   GoogleMaps.ready('map', function(map) {
+
+    //Session.set('map', map);
 
     //Markers.insert({ lat: 37.92745749, lng: -122.30918959999998, animation: google.maps.Animation.BOUNCE, icon: }); //this is a test line of code with which you can explore marker options
 

@@ -96,6 +96,8 @@ html button {
 
 }
 
+.gm-style-cc { display:none; }
+
 #map{
   display: inline-block;
   width: 94%;
