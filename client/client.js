@@ -1,30 +1,33 @@
-Meteor.startup(function() {  
+
+
+
+if (Meteor.isClient) {
+
+Meteor.startup(function() {
   GoogleMaps.load();
 });
 
-Session.setDefault('counter', 0);
-
-Template.map.helpers({  
+Template.map.helpers({
   mapOptions: function() {
     if (GoogleMaps.loaded()) {
       return {
         center: new google.maps.LatLng(37.7577,-122.4376), //approx. center of SF
-        zoom: 12 
+        zoom: 12
       };
     }
   }
 });
 
-Template.map.onCreated(function() {  
+Template.map.onCreated(function() {
   GoogleMaps.ready('map', function(map) {
     Markers.insert({ lat: 37.92745749, lng: -122.30918959999998, animation: google.maps.Animation.BOUNCE }); //this is a test line of code with which you can explore marker options
 
-    // the code below automatically detects changes in the Markers mongo collection and updates the map accordingly.  property values from 
+    // the code below automatically detects changes in the Markers mongo collection and updates the map accordingly.  property values from
     // the collection can be referred to so that look and behavior can be customized based on properties of the data point
 
     var markers = {};
 
-    Markers.find().observe({  
+    Markers.find().observe({
       added: function(document) {
         // Create a marker for this document
         var marker = new google.maps.Marker({
@@ -56,3 +59,4 @@ Template.map.onCreated(function() {
     });
   });
 });
+}
