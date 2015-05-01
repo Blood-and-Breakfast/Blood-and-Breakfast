@@ -59,7 +59,6 @@ stylesArray =
     stylesArray[0].stylers[1].hue = hue;
     stylesArray[1].stylers[1].hue = hue;
     stylesArray[2].stylers[1].hue = hue;
-debugger;
     if(theMap){
       theMap.setOptions({styles: stylesArray});
     }

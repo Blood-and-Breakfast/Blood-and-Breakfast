@@ -15,7 +15,7 @@
 
 {{>header}}
 
-  <span>Your Location: {{playerLoc}}</span>
+  <!-- <span>Your Location: {{playerLoc}}</span> -->
   {{#if currentUser}}
     {{#if session "team"}}
       {{>gamePlayPage}}
@@ -39,8 +39,14 @@
 
 <template name="loginPage">
 <div id="loginPage">
+  {{wipeTeamName}}
   <div>Welcome</div>
-  <div>You are not currently logged in</div>
+
+  {{#if loggingIn }}
+    <div>Logging In</div>
+  {{else}}
+    <div>You are not currently logged in</div>
+  {{/if}}
 
   </div>
 </template>
@@ -53,10 +59,10 @@
 <template name="gameSelectPage">
   <div id='gameSelect'>
   <div>Choose a Side</div>
-  <div id="sideZombie">
+  <div id="sideZombie" class="zombies">
     <button class="playZombies">Zombies</button>
   </div>
-  <div id="sideVampire">
+  <div id="sideVampire" class="vampires">
     <button class="playVampires">Vampires</button>
   </div>
   </div>

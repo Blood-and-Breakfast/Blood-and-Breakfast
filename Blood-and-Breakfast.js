@@ -11,6 +11,7 @@ if (Meteor.isClient) {
   Meteor.startup(function() {
     //fire this here to get permission to use geoloc in browser
     Geolocation.currentLocation();
+
   });
 
   Deps.autorun(function(){
@@ -23,15 +24,17 @@ if (Meteor.isClient) {
 
   Template.everything.rendered = function(){
     setBodyToWindowSize();
+    updateClientToTeam();
   }
 
   Template.everything.created = function() {
     $(window).resize(function() {
       setBodyToWindowSize();
     });
+
     //TODO need to find the best place to call this
     //and whether or not it needs to be called more than once ever
-    addBusStops();
+    //addBusStops();
 
   };
 
@@ -59,6 +62,12 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.loginPage.helpers({
+    wipeTeamName: function(){
+      Session.set("team", null);
+    }
+  })
+
   Template.everything.events({
     "click .playZombies": function () {
       // Set the checked property to the opposite of its current value
@@ -78,12 +87,58 @@ if (Meteor.isClient) {
   //Need to attach it to the user in db
   var setTeamName = function(name){
     Session.set("team", name);
+    Meteor.call("setUserName", name);
     if(name === "zombies"){
       Session.set("isZombie", true);
     }else{
       Session.set("isZombie", false);
     }
-    setMapStyleToTeam(Session.get('isZombie'));
+    updateClientToTeam();
+  }
+
+  //handles updating all divs and templates to a theme based on team
+  updateClientToTeam = function(){
+
+    if(!Session.get('team')) return;
+
+    var isZombie = Session.get('isZombie');
+    setMapStyleToTeam(isZombie);
+
+    var team = "zombies";
+    var notTeam = "vampires";
+
+
+    if(!isZombie){
+      team = "vampires";
+      notTeam = "zombies";
+    }
+
+    var main = $('#main');
+    var topBar = $('#topBar');
+    var gameSelect = $('#gameSelect');
+    var loginPage = $('loginPage');
+    var gamePlay = $('gamePlay');
+
+    if(main){
+      main.removeClass(notTeam);
+      main.addClass(team);
+    }
+    if(topBar){
+      topBar.removeClass(notTeam);
+      topBar.addClass(team);
+    }
+    if(gameSelect){
+      gameSelect.removeClass(notTeam);
+      gameSelect.addClass(team);
+    }
+    if(loginPage){
+      loginPage.removeClass(notTeam);
+      loginPage.addClass(team);
+    }
+    if(gamePlay){
+      gamePlay.removeClass(notTeam);
+      gamePlay.addClass(team);
+    }
   }
 
 
