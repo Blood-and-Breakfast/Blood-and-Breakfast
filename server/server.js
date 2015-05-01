@@ -25,8 +25,8 @@ if (Meteor.isServer) {
                   Stops.upsert({stopId: obj.$.stopId}, {
                     tag: obj.$.tag,
                     title: obj.$.title,
-                    lat: obj.$.lat,
-                    lon: obj.$.lon,
+                    lat: parseFloat(obj.$.lat),
+                    lon: parseFloat(obj.$.lon),
                     stopId: obj.$.stopId
                   })
                 })

@@ -32,10 +32,6 @@ if (Meteor.isClient) {
       setBodyToWindowSize();
     });
 
-    //TODO need to find the best place to call this
-    //and whether or not it needs to be called more than once ever
-    //addBusStops();
-
   };
 
   Template.header.rendered = function(){
@@ -80,8 +76,13 @@ if (Meteor.isClient) {
      "click .biteButton": function () {
       // Set the checked property to the opposite of its current value
       triggerBite(Session.get("team"));
+
     }
   });
+
+  Template.gamePlayPage.rendered = function (){
+    addBusStops({'lat': 37.78195, 'lon': -122.4210699});
+  };
 
   //TODO: this is only setting team name temp in client session
   //Need to attach it to the user in db
