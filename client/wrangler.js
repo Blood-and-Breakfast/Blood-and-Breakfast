@@ -1,20 +1,20 @@
-//Markers.insert({ lat: 37.92745749, lng: -122.30918959999998, animation: google.maps.Animation.BOUNCE, icon: }); //this is a test line of code with which you can explore marker options
-
 
 if (Meteor.isClient) {
 
   Meteor.startup(function() {
-    addBusStops();
+
   });
 
   Meteor.subscribe('stops');
   Meteor.subscribe('markers');
 
-
+  //pulls all stops out of db and adds markers for them
+  //likely only needs to be called once ever
+  //and from there on out just pulls from markers
   addBusStops = function(){
     var busStops = Stops.find().fetch();
     var stop;
-    Markers.insert({ lat: 37.92745749, lng: -122.30918959999998, icon: "./blue-bus-stop.png" }); //this is a test line of code with which you can explore marker options
+    Markers.insert({ lat: 37.7833, lng: 122.4167, icon: "./blue-bus-stop.png" }); //this is a test line of code with which you can explore marker options
     var count = 0;
     for(var i = 0; i < busStops.length; i++){
 
@@ -24,6 +24,10 @@ if (Meteor.isClient) {
     }
   };
 
+  //TODO: make this do something
+  //query db for all stops and buses within n distance of player
+  //set bite button timer on client and server
+  //disable bit button until timer resets
   infectArea = function(teamName){
     var loc = playerLoc;
     var team = teamName;
