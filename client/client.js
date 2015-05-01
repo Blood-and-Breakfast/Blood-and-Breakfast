@@ -8,8 +8,8 @@ Template.map.helpers({
   mapOptions: function() {
     if (GoogleMaps.loaded()) {
       return {
-        center: new google.maps.LatLng(37.7577,-122.4376),
-        zoom: 12
+        center: new google.maps.LatLng(37.7577,-122.4376), //approx. center of SF
+        zoom: 12 
       };
     }
   }
@@ -17,29 +17,23 @@ Template.map.helpers({
 
 Template.map.onCreated(function() {  
   GoogleMaps.ready('map', function(map) {
-    google.maps.event.addListener(map.instance, 'click', function(event) {
-      Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng() });
-    });
+    Markers.insert({ lat: 37.92745749, lng: -122.30918959999998, animation: google.maps.Animation.BOUNCE }); //this is a test line of code with which you can explore marker options
 
-    // The code shown below goes here
+    // the code below automatically detects changes in the Markers mongo collection and updates the map accordingly.  property values from 
+    // the collection can be referred to so that look and behavior can be customized based on properties of the data point
+
     var markers = {};
 
     Markers.find().observe({  
       added: function(document) {
         // Create a marker for this document
         var marker = new google.maps.Marker({
-          draggable: true,
-          animation: google.maps.Animation.DROP,
+          // a plethora of key value pair options can be found at the google maps api website with which markers can be customized ad nauseum
+          animation: document.animation || google.maps.Animation.DROP,
+          // icon: document.icon <- we can use this option when we want to customize our icons
           position: new google.maps.LatLng(document.lat, document.lng),
           map: map.instance,
-          // We store the document _id on the marker in order 
-          // to update the document within the 'dragend' event below.
           id: document._id
-        });
-
-        // This listener lets us drag markers on the map and update their corresponding document.
-        google.maps.event.addListener(marker, 'dragend', function(event) {
-          Markers.update(marker.id, { $set: { lat: event.latLng.lat(), lng: event.latLng.lng() }});
         });
 
         // Store this marker instance within the markers object.

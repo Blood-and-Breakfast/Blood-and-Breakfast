@@ -38,7 +38,7 @@ if (Meteor.isClient) {
   }
 
   Template.registerHelper("playerLoc", function(){
-    var loc = Geolocation.currentLocation()
+    var loc = Geolocation.currentLocation();
     var locX = loc.coords.latitude;
     var locY = loc.coords.longitude;
     return "" + locX + "," + locY;
