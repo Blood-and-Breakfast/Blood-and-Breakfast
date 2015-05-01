@@ -32,30 +32,23 @@ if (Meteor.isClient) {
       setBodyToWindowSize();
     });
 
-
   };
 
   Template.header.rendered = function(){
-  }
+  };
 
   var setBodyToWindowSize = function(){
     var theBody = $("body");
 
     theBody.height($(window).height());
     theBody.width($(window).width());
-  }
+  };
 
-  Template.registerHelper("playerLoc", function(){
-    var loc = Geolocation.currentLocation();
-    if(!loc) return "";
-    var locX = loc.coords.latitude;
-    var locY = loc.coords.longitude;
-    return "" + locX + "," + locY;
-  })
+
 
   Template.registerHelper("session", function(key){
     return Session.get(key);
-  })
+  });
 
   Template.everything.helpers({
     giraffe: function () {
@@ -63,6 +56,12 @@ if (Meteor.isClient) {
     },
     teamName: function(){
       return Session.get("team");
+    },
+    isZombie: function(){
+      return Session.get("team") === "zombies";
+    },
+    isVampire: function(){
+      return Session.get("team") === "vampires";
     }
   });
 
@@ -74,6 +73,10 @@ if (Meteor.isClient) {
     "click .playVampires": function () {
       // Set the checked property to the opposite of its current value
       setTeamName("vampires");
+    },
+     "click .biteButton": function () {
+      // Set the checked property to the opposite of its current value
+      triggerBite(Session.get("team"));
     }
   });
 

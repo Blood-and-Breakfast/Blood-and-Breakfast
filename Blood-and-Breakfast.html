@@ -69,7 +69,12 @@
   <div id="gamePlay">
     <div id="teamName">TEAM: {{session "team"}}</div>
     <div id="map">{{>map}}</div>
-    <button>BITE PEOPLE AT BUS STOP</button>
-    <button>OPTIONS</button>
+    <button>
+    {{#if isVampire}}
+      BITE PEOPLE
+    {{else}}
+      EAT BRAINS
+    {{/if}}
+    </button>
   </div>
 </template>
