@@ -14,3 +14,6 @@ accounts-google
 mdg:geolocation
 twbs:bootstrap
 dburles:google-maps
+http
+peerlibrary:xml2js
+underscore
