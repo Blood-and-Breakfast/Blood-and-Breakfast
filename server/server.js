@@ -1,6 +1,15 @@
 
 
 if (Meteor.isServer) {
+
+  Meteor.methods({
+    setUserName: function(name){
+      //check if user already has a team
+      //if they do exit and return error
+      return name;
+    }
+  });
+
   Meteor.startup(function () {
     // code to run on server at startup
 
