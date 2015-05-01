@@ -20,7 +20,8 @@ Template.map.helpers({
 
 Template.map.onCreated(function() {
   GoogleMaps.ready('map', function(map) {
-    Markers.insert({ lat: 37.92745749, lng: -122.30918959999998, animation: google.maps.Animation.BOUNCE }); //this is a test line of code with which you can explore marker options
+
+    //Markers.insert({ lat: 37.92745749, lng: -122.30918959999998, animation: google.maps.Animation.BOUNCE, icon: }); //this is a test line of code with which you can explore marker options
 
     // the code below automatically detects changes in the Markers mongo collection and updates the map accordingly.  property values from
     // the collection can be referred to so that look and behavior can be customized based on properties of the data point
@@ -33,7 +34,7 @@ Template.map.onCreated(function() {
         var marker = new google.maps.Marker({
           // a plethora of key value pair options can be found at the google maps api website with which markers can be customized ad nauseum
           animation: document.animation || google.maps.Animation.DROP,
-          // icon: document.icon <- we can use this option when we want to customize our icons
+          icon: document.icon, //<- we can use this option when we want to customize our icons
           position: new google.maps.LatLng(document.lat, document.lng),
           map: map.instance,
           id: document._id
