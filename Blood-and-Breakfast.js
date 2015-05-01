@@ -9,9 +9,8 @@ Routes = new Mongo.Collection('routes');
 if (Meteor.isClient) {
 
   Meteor.startup(function() {
+    //fire this here to get permission to use geoloc in browser
     Geolocation.currentLocation();
-    //get window info
-
   });
 
   Deps.autorun(function(){
@@ -24,13 +23,15 @@ if (Meteor.isClient) {
 
   Template.everything.rendered = function(){
     setBodyToWindowSize();
-
   }
 
   Template.everything.created = function() {
     $(window).resize(function() {
       setBodyToWindowSize();
     });
+    //TODO need to find the best place to call this
+    //and whether or not it needs to be called more than once ever
+    addBusStops();
 
   };
 
@@ -39,13 +40,12 @@ if (Meteor.isClient) {
 
   var setBodyToWindowSize = function(){
     var theBody = $("body");
-
     theBody.height($(window).height());
     theBody.width($(window).width());
   };
 
-
-
+  //this is a global access point for the Session
+  //usage in templates is {{session "key"}}
   Template.registerHelper("session", function(key){
     return Session.get(key);
   });
@@ -56,12 +56,6 @@ if (Meteor.isClient) {
     },
     teamName: function(){
       return Session.get("team");
-    },
-    isZombie: function(){
-      return Session.get("team") === "zombies";
-    },
-    isVampire: function(){
-      return Session.get("team") === "vampires";
     }
   });
 
@@ -80,8 +74,15 @@ if (Meteor.isClient) {
     }
   });
 
+  //TODO: this is only setting team name temp in client session
+  //Need to attach it to the user in db
   var setTeamName = function(name){
     Session.set("team", name);
+    if(name === "zombies"){
+      Session.set("isZombie", true);
+    }else{
+      Session.set("isZombie", false);
+    }
   }
 
 

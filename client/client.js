@@ -1,4 +1,6 @@
-
+//TODO: need methods to update icons per marker based on:
+  //TYPE: bus or stop
+  //CONDITION: redness v greeness. (slots are likely only shown in popup);
 
 
 if (Meteor.isClient) {

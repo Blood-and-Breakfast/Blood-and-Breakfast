@@ -48,10 +48,7 @@
 <template name="options">
   <div id="options">
   </div>
-  {{loginButtons}}
 </template>
-
-
 
 <template name="gameSelectPage">
   <div id='gameSelect'>
@@ -66,14 +63,14 @@
 </template>
 
 <template name="gamePlayPage">
-  <div id="gamePlay">
+  <div id="gamePlay" class="{{session 'team'}}">
     <div id="teamName">TEAM: {{session "team"}}</div>
     <div id="map">{{>map}}</div>
     <button>
-    {{#if isVampire}}
-      BITE PEOPLE
-    {{else}}
+    {{#if session "isZombie"}}
       EAT BRAINS
+    {{else}}
+      BITE PEOPLE
     {{/if}}
     </button>
   </div>
