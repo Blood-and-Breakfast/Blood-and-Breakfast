@@ -1,25 +1,93 @@
 /* CSS declarations go here */
 
+#title{
+  font-size: 1.5em;
+}
+#main{
+  font-family: 'Oswald', sans-serif;
+  box-sizing: border-box;
+   border:2px solid black;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+  color: white;
+  font-size: 1.1em;
+  /* IE10 Consumer Preview */
+/* Note: This gradient may render differently in browsers that don't support the unprefixed gradient syntax */
+
+/* IE10 Consumer Preview */
+background-image: -ms-linear-gradient(bottom right, #A31C0D 0%, #0C4706 100%);
+
+/* Mozilla Firefox */
+background-image: -moz-linear-gradient(bottom right, #A31C0D 0%, #0C4706 100%);
+
+/* Opera */
+background-image: -o-linear-gradient(bottom right, #A31C0D 0%, #0C4706 100%);
+
+/* Webkit (Safari/Chrome 10) */
+background-image: -webkit-gradient(linear, right bottom, left top, color-stop(0, #A31C0D), color-stop(1, #0C4706));
+
+/* Webkit (Chrome 11+) */
+background-image: -webkit-linear-gradient(bottom right, #A31C0D 0%, #0C4706 100%);
+
+/* W3C Markup, IE10 Release Preview */
+background-image: linear-gradient(to top left, #A31C0D 0%, #0C4706 100%);}
+#loginPage{
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 10%;
+  font-size: 2em;
+}
 #topBar{
-  height: auto;
+  height: 40px;
   width: 100%;
   background-color: black;
   color: white;
 }
 #topBarRight{
   display:inline-block;
-  width: 30%;
+  float: right;
+  width: auto;
+  margin: 0;
 }
 #topBarLeft{
   display:inline-block;
   width: 70%;
+  margin: 0;
+}
+#gameSelect{
+  text-align: center;
+  display: inline-block;
+  margin-top: 20%;
+  font-size: 2em;
+  width: 100%;
+  height: 50%;
+}
+html button {
+  background-color: rgb(0,0,0,0);
+  border: 2px solid white;
+  color: white;
+
+}
+#sideZombie{
+  display: inline-block;
+  height: 100%;
+  width: 44%;
+  border: 2px dashed green;
+}
+#sideVampire{
+  display: inline-block;
+  width: 44%;
+  height: 100%;
+  border: 2px dashed red;
+}
+#gamePlay{
+  margin-top: 10%;
+  text-align: center;
+  width: 100%;
+  height: 80%;
 }
 
-#main{
-  border:2px solid black;
-  width: 100%;
-  height: 100%;
-}
 #map{
   display: inline-block;
   width: 94%;
@@ -28,6 +96,29 @@
 }
 .map-container {
   width: 100%;
-  max-width: 100%;
-  height: 500px;
-}/* CSS declarations go here */
+  height: 100%;
+}
+
+#login-dropdown-list{
+  display: inline-block;
+  top: 16px;
+  margin-left: -50%;
+  color: white;
+}
+.dropdown-toggle{
+
+}
+html .dropdown-menu{
+
+  margin-left: -200px;
+}
+#login-dropdown-list:before{
+
+}
+#login-dropdown-list:after{
+
+}
+
+#login-dropdown-list a{
+  color: white;
+}

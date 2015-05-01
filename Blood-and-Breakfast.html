@@ -1,6 +1,7 @@
 
 <head>
   <title>Blood and Breakfast</title>
+  <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -11,16 +12,10 @@
 
 <template name="everything">
 <div id="main">
-  <div id="topBar">
-    <div id="topBarLeft">
-      <h1>Zombie Vampire Bus Battle</h1>
-    </div>
-    <div id="topBarRight">{{>loginButtons}}</div>
-  </div>
 
+{{>header}}
 
-  <span>LOC: {{playerLoc}}</span>
-  <span>Username: {{currentUser.username}}</span>
+  <span>Your Location: {{playerLoc}}</span>
   {{#if currentUser}}
     {{#if session "team"}}
       {{>gamePlayPage}}
@@ -33,29 +28,48 @@
   </div>
 </template>
 
+<template name="header">
+  <div id="topBar">
+    <div id="topBarLeft">
+      <div id="title">Zombie Vampire Bus Battle</div>
+    </div>
+    <div id="topBarRight">{{>loginButtons}}</div>
+  </div>
+  </template>
+
 <template name="loginPage">
-  <h1>Login Page</h1>
-  <h2>cause you are not logged in</h2>
+<div id="loginPage">
+  <div>Welcome</div>
+  <div>You are not currently logged in</div>
+
+  </div>
 </template>
 
 <template name="options">
   <div id="options">
   </div>
-  {{>loginButtons}}
+  {{loginButtons}}
 </template>
 
 
 
 <template name="gameSelectPage">
-  <h1>Game Select Page</h1>
-  <button class="playZombies">Zombies</button>
-  <button class="playVampires">Vampires</button>
+  <div id='gameSelect'>
+  <div>Choose a Side</div>
+  <div id="sideZombie">
+    <button class="playZombies">Zombies</button>
+  </div>
+  <div id="sideVampire">
+    <button class="playVampires">Vampires</button>
+  </div>
+  </div>
 </template>
 
 <template name="gamePlayPage">
-  <h1>Game Play Page</h1>
-  <h2>TEAM: {{session "team"}}</h2>
-  <div id="map">{{>map}}</div>
-  <button>BITE PEOPLE AT BUS STOP</button>
-  <button>OPTIONS</button>
+  <div id="gamePlay">
+    <div id="teamName">TEAM: {{session "team"}}</div>
+    <div id="map">{{>map}}</div>
+    <button>BITE PEOPLE AT BUS STOP</button>
+    <button>OPTIONS</button>
+  </div>
 </template>

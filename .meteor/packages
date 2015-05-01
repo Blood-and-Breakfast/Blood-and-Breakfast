@@ -7,7 +7,6 @@
 meteor-platform
 autopublish
 insecure
-accounts-ui
 accounts-password
 accounts-facebook
 accounts-google
@@ -17,3 +16,4 @@ dburles:google-maps
 http
 peerlibrary:xml2js
 underscore
+ian:accounts-ui-bootstrap-3
