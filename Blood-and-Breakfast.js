@@ -148,5 +148,47 @@ if (Meteor.isClient) {
 }
 
 
+// I DONT KNOW WHERE WE WANT THIS SO I AM PUTTING IT HERE FOR NOW!!!!:
+var delta = .02; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
 
+var checkUserLoc = function(userLat, userLon){
+  var nearBus = false;
+  var nearStop = false;
+  var Buses = Buses.find({});
+  Buses.forEach(function (bus) {
+    if (getDistanceFromLatLonInKm(userLat, userLon, bus.lat, bus.lon) < delta){
+      nearBus = true;
+      // can I insert a break statement here?  this forEach is a meteor forEach so I dont know its rules
+    }
+  });
+  if (nearBus){
+    // chcek if user is near busStop
+    var Stops = Stops.find({});
+    Stops.forEach(function (stop) {
+      if (getDistanceFromLatLonInKm(userLat, userLon, bus.lat, bus.lon) < delta){
+        nearStop = true;
+        // can I insert a break statement here?  this forEach is a meteor forEach so I dont know its rules
+      }
+    });
+  }
+  return nearStop;
+}
+
+var getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d;
+}
+
+var deg2rad = function(deg) {
+  return deg * (Math.PI/180)
+}
 

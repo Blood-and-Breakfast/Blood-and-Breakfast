@@ -53,4 +53,17 @@ if (Meteor.isServer) {
     });
 
   });
+
+  var queryBuses = function(){
+    HTTP.get('http://restbus.info/api/agencies/sf-muni/vehicles', function(error, results){
+      if (!error){
+        Buses.remove({});
+        JSON.parse(results.content).forEach( function(element){
+            Buses.insert({lat: element.lat, lon: element.lon});
+            console.log(element.lat);
+          });
+        }
+      })
+    };
+  // Meteor.setInterval(queryBuses, 30000); // uncomment this line when you want to start making queries
 }
