@@ -11,7 +11,7 @@ if (Meteor.isClient) {
   Meteor.startup(function() {
     //fire this here to get permission to use geoloc in browser
     Geolocation.currentLocation();
-
+    Session.set("loc", playerLoc(true));
   });
 
   Deps.autorun(function(){
@@ -81,7 +81,7 @@ if (Meteor.isClient) {
   });
 
   Template.gamePlayPage.rendered = function (){
-    addBusStops({'lat': 37.78195, 'lon': -122.4210699});
+    addBusStops(Session.get('loc'));
   };
 
   //TODO: this is only setting team name temp in client session
