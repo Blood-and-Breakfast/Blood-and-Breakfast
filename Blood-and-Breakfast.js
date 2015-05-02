@@ -11,7 +11,7 @@ if (Meteor.isClient) {
   Meteor.startup(function() {
     //fire this here to get permission to use geoloc in browser
     Geolocation.currentLocation();
-
+    Session.set("loc", playerLoc(true));
   });
 
   Deps.autorun(function(){
@@ -31,10 +31,6 @@ if (Meteor.isClient) {
     $(window).resize(function() {
       setBodyToWindowSize();
     });
-
-    //TODO need to find the best place to call this
-    //and whether or not it needs to be called more than once ever
-    //addBusStops();
 
   };
 
@@ -80,8 +76,13 @@ if (Meteor.isClient) {
      "click .biteButton": function () {
       // Set the checked property to the opposite of its current value
       triggerBite(Session.get("team"));
+
     }
   });
+
+  Template.gamePlayPage.rendered = function (){
+    addBusStops(Session.get('loc'));
+  };
 
   //TODO: this is only setting team name temp in client session
   //Need to attach it to the user in db
