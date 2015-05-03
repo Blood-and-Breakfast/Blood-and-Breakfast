@@ -1,0 +1,35 @@
+<template name="customLogin">
+
+</template>
+
+<template name="loggedInOptions">
+  <div id="optionsLI" class="options">
+    <button class="optionsButton" id="change-password">Change password</button>
+    <button class="optionsButton" id="logout">Sign out</button>
+  </div>
+</template>
+
+<template name="loggedOutOptions">
+
+  <div id="optionsLO" class="options">
+     <input id="input-username" type="text" placeholder="Username" class="optionsInput">
+      <input id="input-password" type="password" placeholder="Password" class="optionsInput">
+  {{#if createIsOpen}}
+    {{>createAccount}}
+  {{else}}
+    {{>signIn}}
+  {{/if}}
+  <button id="createToggle" class="optionsButton">Cancel</button>
+  </div>
+</template>
+
+<template name="signIn">
+  <button class="optionsButton" id="logIn" type="button">Sign in</button>
+</template>
+
+<template name="createAccount">
+   <input id="input-password-again" type="password" placeholder="Password (confirm)" class="optionsInput">
+  <button class="optionsButton" id="create" type="button">Create</button>
+
+
+</template>

@@ -44,6 +44,8 @@ if (Meteor.isClient) {
     return playerLoc();
   });
 
+  //passing true will return an object with floats
+  //not passing true will return a string of coords
   playerLoc = function(asVals){
     var loc = Geolocation.currentLocation();
     if(!loc) return "";
