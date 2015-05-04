@@ -16,6 +16,10 @@ if (Meteor.isServer) {
     //function is used in _.each statement to get stops while getting routes
     var getStops = function (tag) {
       HTTP.get('http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=sf-muni&r='+tag, function (err, res) {
+              if (err) {
+                console.log("Error getting stops for route: ", err);
+              }
+
               xml2js.parseString(res.content, function (err, parsedJson) {
                 if (err) {
                   console.log("Error getting stops for Route "+ tag);
@@ -37,7 +41,7 @@ if (Meteor.isServer) {
     HTTP.get('http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=sf-muni', function (err, res) {
       //converts XML from NextBus API to JSON
       if (err) {
-                  console.log("Error getting all Routes");
+                  console.log("Error getting all Routes: ", err);
                 }
       xml2js.parseString(res.content, function (err, parsedJson){
         var routes = parsedJson.body.route;
