@@ -8,6 +8,7 @@ if (Meteor.isClient) {
 
   Meteor.subscribe('stops');
   Meteor.subscribe('markers');
+  Meteor.subscribe('routes');
 
   //pulls all stops out of db and adds markers for them
   //likely only needs to be called once ever
