@@ -2,9 +2,6 @@
   //TYPE: bus or stop
   //CONDITION: redness v greeness. (slots are likely only shown in popup);
 
-
-if (Meteor.isClient) {
-
 Meteor.startup(function() {
   theMap = GoogleMaps.load();
 });
@@ -29,7 +26,7 @@ stylesArray =
       stylers: [
         { "visibility": "on" },
         { "hue": "#0000ff" },
-        { "weight": .75 },
+        { "weight": 0.75 },
         { "gamma": 0.31 },
         { "saturation": 100 },
         { "lightness": -7 }
@@ -134,4 +131,3 @@ Template.map.onCreated(function() {
     });
   });
 });
-}
