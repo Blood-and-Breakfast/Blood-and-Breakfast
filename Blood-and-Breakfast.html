@@ -13,7 +13,7 @@
 <template name="everything">
 <div id="main">
 
-{{>header}}
+<!-- {{>header}} -->
 
   <!-- <span>Your Location: {{playerLoc}}</span> -->
   {{#if currentUser}}
@@ -40,12 +40,16 @@
 <template name="loginPage">
 <div id="loginPage">
   {{wipeTeamName}}
-  <div>Welcome</div>
+  <div id="title">Zombie Vampire Bus Battle</div>
 
   {{#if loggingIn }}
     <div>Logging In</div>
   {{else}}
     <div>You are not currently logged in</div>
+    {{>loginButtons}}
+<!--  {{>loggedInOptions}} -->
+    <div>======</div>
+    <!-- {{>loggedOutOptions}} -->
   {{/if}}
 
   </div>
@@ -58,21 +62,22 @@
 
 <template name="gameSelectPage">
   <div id='gameSelect'>
-  <div>Choose a Side</div>
-  <div id="sideZombie" class="zombies">
-    <button class="playZombies">Zombies</button>
+    <div>Choose a Side</div>
+    <div id="sideZombie" class="zombies">
+      <button class="playZombies">Zombies</button>
+    </div>
+    <div id="sideVampire" class="vampires">
+      <button class="playVampires">Vampires</button>
+    </div>
+    <div class="loginButtons">{{>loginButtons}}</div>
   </div>
-  <div id="sideVampire" class="vampires">
-    <button class="playVampires">Vampires</button>
-  </div>
-  </div>
+
 </template>
 
 <template name="gamePlayPage">
   <div id="gamePlay" class="{{session 'team'}}">
-    <div id="teamName">TEAM: {{session "team"}}</div>
-    <div id="map">{{>map}}</div>
-    <button>
+    <div id="map" class="innerShadow">{{>map}}</div>
+    <button class="outerShadow bite {{session 'team'}}">
     {{#if session "isZombie"}}
       EAT BRAINS
     {{else}}
@@ -81,3 +86,6 @@
     </button>
   </div>
 </template>
+
+
+

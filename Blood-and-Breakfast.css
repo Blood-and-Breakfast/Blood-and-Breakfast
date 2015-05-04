@@ -1,50 +1,88 @@
 /* CSS declarations go here */
+*{
+    outline: none;
+}
 
 #title{
-  font-size: 1.5em;
+  font-size: 1em;
 }
+
+.centerGrad{
+  /* IE10 Consumer Preview */
+background-image: -ms-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, #000000 300%);
+
+/* Mozilla Firefox */
+background-image: -moz-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, #000000 300%);
+
+/* Opera */
+background-image: -o-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, #000000 300%);
+
+/* Webkit (Safari/Chrome 10) */
+background-image: -webkit-gradient(radial, center center, 0, center center, 467, color-stop(0, #FFFFFF), color-stop(3, #000000));
+
+/* Webkit (Chrome 11+) */
+background-image: -webkit-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, #000000 300%);
+
+/* W3C Markup, IE10 Release Preview */
+background-image: radial-gradient(circle farthest-corner at center, #FFFFFF 0%, #000000 300%);
+}
+
+.innerShadow{
+  -webkit-box-shadow: inset 5px 5px 5px 0px rgba(0,0,0,0.49);
+-moz-box-shadow: inset 5px 5px 5px 0px rgba(0,0,0,0.49);
+box-shadow: inset 5px 5px 5px 0px rgba(0,0,0,0.49);
+}
+
+.outerShadow{
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.49);
+-moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.49);
+box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.49);
+}
+
 #main{
 
   font-family: 'Oswald', sans-serif;
   box-sizing: border-box;
-   border:2px solid black;
+   border:4px solid black;
   width: 100%;
   height: 100%;
   cursor: default;
   color: white;
-  font-size: 1.1em;
+  font-size: 1em;
 
-background-image: -ms-linear-gradient(bottom right, #A31C0D 0%, #0C4706 100%);
+  /* IE10 Consumer Preview */
+background-image: -ms-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, #000000 300%);
 
+/* Mozilla Firefox */
+background-image: -moz-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, #000000 300%);
 
-background-image: -moz-linear-gradient(bottom right, #A31C0D 0%, #0C4706 100%);
+/* Opera */
+background-image: -o-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, #000000 300%);
 
+/* Webkit (Safari/Chrome 10) */
+background-image: -webkit-gradient(radial, center center, 0, center center, 467, color-stop(0, #FFFFFF), color-stop(3, #000000));
 
-background-image: -o-linear-gradient(bottom right, #A31C0D 0%, #0C4706 100%);
+/* Webkit (Chrome 11+) */
+background-image: -webkit-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, #000000 300%);
 
-
-background-image: -webkit-gradient(linear, right bottom, left top, color-stop(0, #A31C0D), color-stop(1, #0C4706));
-
-
-background-image: -webkit-linear-gradient(bottom right, #A31C0D 0%, #0C4706 100%);
-
-
-background-image: linear-gradient(to top left, #A31C0D 0%, #0C4706 100%);
+/* W3C Markup, IE10 Release Preview */
+background-image: radial-gradient(circle farthest-corner at center, #FFFFFF 0%, #000000 300%);
 }
 #loginPage{
   text-align: center;
   vertical-align: middle;
-  margin-top: 10%;
-  font-size: 2em;
+  height: 100%;
+  width: 100%;
+  font-size: 1em;
 }
-#topBar{
+/*#topBar{
 
   height: 40px;
   width: 100%;
   background-color: black;
   color: white;
-}
-#topBarRight{
+}*/
+/*#topBarRight{
   display:inline-block;
   float: right;
   width: auto;
@@ -54,82 +92,83 @@ background-image: linear-gradient(to top left, #A31C0D 0%, #0C4706 100%);
   display:inline-block;
   width: 70%;
   margin: 0;
-}
+}*/
 #gameSelect{
   text-align: center;
   display: inline-block;
-  margin-top: 20%;
-  font-size: 2em;
+  font-size: 1em;
   width: 100%;
   height: 100%;
-}
-html button {
-  background-color: rgb(0,0,0,0);
-  border: 2px solid white;
-  color: white;
-
 }
 #sideZombie{
   display: inline-block;
   height: 50%;
-  width: 44%;
-  border: 2px dashed green;
+  width: 49%;
+  border: 2px solid black;
 }
 #sideVampire{
   display: inline-block;
-  width: 44%;
+  width: 49%;
   height: 50%;
-  border: 2px dashed red;
+  border: 2px solid black;
 }
 #gamePlay{
-  margin-top: 10%;
+  position: relative;
   text-align: center;
   width: 100%;
-  height: 80%;
+  height: 100%;
 }
-div.zombies{
-  background-color: rgba(0,255,0,.2);
+div .zombies{
+  background-color: #008513;
+
 }
 
-div.vampires{
-  background-color: rgba(255,0,0,.2);
-
+div .vampires{
+  background-color: #850C00;
 }
 
 .gm-style-cc { display:none; }
 
 #map{
   display: inline-block;
-  width: 94%;
-  height: 50%;
-  border: 2px solid black;
+  width: 96%;
+  height: 80%;
+  margin: 2% 0 0 0;
+  border: 1px solid black;
 }
 .map-container {
   width: 100%;
   height: 100%;
+  border: 1px solid black;
 }
 
-#login-dropdown-list{
-  display: inline-block;
-  top: 16px;
-  margin-left: -50%;
-  color: white;
-}
-.dropdown-toggle{
+button.bite.zombies{
+
 
 }
-html .dropdown-menu{
-  background-color: black;
-
-  margin-left: -200px;
-}
-#login-dropdown-list:before{
-
-}
-#login-dropdown-list:after{
+button.bite.vampires{
 
 }
 
-#login-dropdown-list a{
-  color: white;
+button.bite{
+  position: relative;
+  height: 100px;
+  width: 100px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  vertical-align: middle;
+  border: 2.5px double black;
+  text-align: center;
+  margin-top: -50px;
+  z-index: 1000;
+}
+
+button:active{
+  -ms-transform: scale(.95); /* IE 9 */
+  -webkit-transform: scale(.95)); /* Safari */
+  transform: scale(.95);
+
+}
+
+button:hover{
 }
