@@ -1,5 +1,4 @@
 
-
 if (Meteor.isServer) {
 
   Meteor.publish('stops', function() {
