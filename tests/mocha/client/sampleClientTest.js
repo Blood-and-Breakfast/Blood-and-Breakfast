@@ -5,5 +5,11 @@ if (!(typeof MochaWeb === 'undefined')){
         chai.assert.equal(5,5);
       });
     });
+
+    describe('geolocation based data', function() {
+      it('should add markers for nearby bus stops based on location', function() {
+
+      });
+    });
   });
 }
