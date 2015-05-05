@@ -1,8 +1,8 @@
 
-Markers = new Mongo.Collection('markers');
+Markers = new Mongo.Collection('markers'); // includes buses, stops, player
 Stops = new Mongo.Collection("stops");
 Players = new Mongo.Collection("players"); // we need to use this
-Buses = new Mongo.Collection("buses");
+// Buses = new Mongo.Collection("buses");
 Routes = new Mongo.Collection('routes');
 
 
@@ -25,16 +25,13 @@ if (Meteor.isClient) {
   Template.everything.rendered = function(){
     setBodyToWindowSize();
     updateClientToTeam();
-  }
+  };
 
   Template.everything.created = function() {
     $(window).resize(function() {
       setBodyToWindowSize();
     });
 
-  };
-
-  Template.header.rendered = function(){
   };
 
   var setBodyToWindowSize = function(){
@@ -48,7 +45,8 @@ if (Meteor.isClient) {
   Template.registerHelper("session", function(key){
     return Session.get(key);
   });
-
+  
+  //placeholder/testing
   Template.everything.helpers({
     giraffe: function () {
       return "Giraffe";
@@ -58,11 +56,11 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.loginPage.helpers({
+  Template.everything.helpers({
     wipeTeamName: function(){
       Session.set("team", null);
     }
-  })
+  });
 
   Template.everything.events({
     "click .playZombies": function () {
@@ -85,7 +83,7 @@ if (Meteor.isClient) {
       checkUserLoc(Session.get("team"), userLat, userLon);
 
     }
-  }); 
+  });
 
   Template.gamePlayPage.rendered = function (){
     addBusStops(Session.get('loc'));
@@ -102,7 +100,7 @@ if (Meteor.isClient) {
       Session.set("isZombie", false);
     }
     updateClientToTeam();
-  }
+  };
 
   //handles updating all divs and templates to a theme based on team
   updateClientToTeam = function(){
@@ -147,7 +145,7 @@ if (Meteor.isClient) {
       gamePlay.removeClass(notTeam);
       gamePlay.addClass(team);
     }
-  }
+  };
 
 
   Accounts.ui.config({
@@ -155,24 +153,25 @@ if (Meteor.isClient) {
   });
 }
 
-var delta = 60; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
+var delta = 200; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
 
 var checkUserLoc = function(team, userLat, userLon){
   var playerId = Players.find({userId: Meteor.userId()}).fetch()[0]._id;
   console.log("userLat", userLat);
   console.log("userLon", userLon);
-  var nearBus = false;
+  var nearBus = true;
   var nearStop = false;
   var firstValidStop = true;
-  var buses = Buses.find({});
-  console.log('inCheckUserLoc');
-  buses.forEach(function (bus) {
-    if (getDistanceFromLatLonInKm(userLat, userLon, bus.lat, bus.lon) < delta){
-      nearBus = true;
-      // can I insert a break statement here?  this forEach is a meteor forEach so I dont know its rules
-    }
-  });
-  if (nearBus){
+  // var buses = Buses.find({});
+  // console.log('inCheckUserLoc');
+  // buses.forEach(function (bus) {
+  //   if (getDistanceFromLatLonInKm(userLat, userLon, bus.lat, bus.lon) < delta){
+  //     nearBus = true;
+      
+  //   }
+  // });
+  // if (nearBus){
+  if (true){
     // chcek if user is near busStop
     console.log('test');
     var stops = Stops.find({});
@@ -181,43 +180,58 @@ var checkUserLoc = function(team, userLat, userLon){
         console.log('valid stop found');
         nearStop = true;
         firstValidStop = false;
-        if (stop[team] === undefined){
-          Stops.update({_id: stop._id}, {$set: {team: 1}});
+        console.log(team);
+        if (team === "zombies"){
+          if (stop["zombies"] === undefined){
+            Stops.update({_id: stop._id}, {$set: {"zombies": 1}});
+            console.log(stop);
+          }
+          else {
+            Stops.update({_id: stop._id}, {$inc: {"zombies": 1}});
+          }
         }
         else {
-          Stops.update({_id: stop._id}, {$inc: {team: 1}});
+          if (stop["vampires"] === undefined){
+            Stops.update({_id: stop._id}, {$set: {"vampires": 1}});
+          }
+          else {
+            Stops.update({_id: stop._id}, {$inc: {"vampires": 1}});
+          }
         }
-        var timerId = Meteor.setInterval(function() { playerScoreIncr(playerId, stop, team); }, 60000);
+        var timerId = Meteor.setInterval(function() { playerScoreIncr(playerId, stop, team); }, 1000);
         Meteor.setTimeout(function(){
           Meteor.clearInterval(timerId);
-        }, 3600000); //one hour
+        }, 30000); //one hour
       }
     });
   }
   return nearStop;
-}
+};
 
 var getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
+  var dLon = deg2rad(lon2-lon1);
+  var a =
     Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)                                                                                                                 
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   var d = R * c; // Distance in km
   return d;
-}
+};
 
 var deg2rad = function(deg) {
-  return deg * (Math.PI/180)
-}
+  return deg * (Math.PI/180);
+};
 
 var playerScoreIncr = function(playerId, stop, team){
   var otherTeam = team === 'zombies' ? 'vampires' : 'zombies';
-  if (stop[team] > stop[otherTeam]){
+  // console.log(stop);
+  console.log(stop[otherTeam]);
+  if (stop[team] > stop[otherTeam] || stop[otherTeam] === undefined){
+    console.log(otherTeam + stop[otherTeam]);
     Players.update({_id: playerId}, {$inc: {score: 3}});
   }
   else {

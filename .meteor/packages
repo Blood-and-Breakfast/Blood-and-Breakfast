@@ -15,8 +15,12 @@ dburles:google-maps
 http
 peerlibrary:xml2js
 underscore
-ian:accounts-ui-bootstrap-3
 msavin:mongol
 service-configuration
 mike:mocha
+ian:accounts-ui-bootstrap-3
+meteorhacks:npm
+npm-container
+meteorhacks:async
+accounts-base
 
