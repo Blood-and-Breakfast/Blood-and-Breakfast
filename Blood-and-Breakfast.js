@@ -34,9 +34,6 @@ if (Meteor.isClient) {
 
   };
 
-  Template.header.rendered = function(){
-  };
-
   var setBodyToWindowSize = function(){
     var theBody = $("body");
     theBody.height($(window).height());
@@ -59,7 +56,7 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.loginPage.helpers({
+  Template.everything.helpers({
     wipeTeamName: function(){
       Session.set("team", null);
     }
@@ -86,7 +83,7 @@ if (Meteor.isClient) {
       checkUserLoc(Session.get("team"), userLat, userLon);
 
     }
-  }); 
+  });
 
   Template.gamePlayPage.rendered = function (){
     addBusStops(Session.get('loc'));
@@ -214,13 +211,13 @@ var checkUserLoc = function(team, userLat, userLon){
 var getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
+  var dLon = deg2rad(lon2-lon1);
+  var a =
     Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)                                                                                                                 
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   var d = R * c; // Distance in km
   return d;
 };
