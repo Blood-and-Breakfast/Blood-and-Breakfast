@@ -25,7 +25,7 @@ if (Meteor.isClient) {
   Template.everything.rendered = function(){
     setBodyToWindowSize();
     updateClientToTeam();
-  }
+  };
 
   Template.everything.created = function() {
     $(window).resize(function() {
@@ -62,7 +62,7 @@ if (Meteor.isClient) {
     wipeTeamName: function(){
       Session.set("team", null);
     }
-  })
+  });
 
   Template.everything.events({
     "click .playZombies": function () {
@@ -102,7 +102,7 @@ if (Meteor.isClient) {
       Session.set("isZombie", false);
     }
     updateClientToTeam();
-  }
+  };
 
   //handles updating all divs and templates to a theme based on team
   updateClientToTeam = function(){
@@ -147,7 +147,7 @@ if (Meteor.isClient) {
       gamePlay.removeClass(notTeam);
       gamePlay.addClass(team);
     }
-  }
+  };
 
 
   Accounts.ui.config({
@@ -195,7 +195,7 @@ var checkUserLoc = function(team, userLat, userLon){
     });
   }
   return nearStop;
-}
+};
 
 var getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
@@ -209,11 +209,11 @@ var getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2) {
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
   var d = R * c; // Distance in km
   return d;
-}
+};
 
 var deg2rad = function(deg) {
-  return deg * (Math.PI/180)
-}
+  return deg * (Math.PI/180);
+};
 
 var playerScoreIncr = function(playerId, stop, team){
   var otherTeam = team === 'zombies' ? 'vampires' : 'zombies';
