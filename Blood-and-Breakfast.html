@@ -1,6 +1,6 @@
 
 <head>
-  <title>Blood and Breakfast</title>
+  <title>Blood and Brains</title>
   <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
   <!-- RSVP -->
   <script src="http://rsvpjs-builds.s3.amazonaws.com/rsvp-latest.js"></script>
@@ -11,72 +11,43 @@
 </head>
 
 <body>
-
   {{>everything}}
-
+  {{>header}}
 </body>
-
-<template name="everything">
-<div id="main">
-
-<!-- {{>header}} -->
-
-  <!-- <span>Your Location: {{playerLoc}}</span> -->
-  {{#if currentUser}}
-    {{#if session "team"}}
-      {{>gamePlayPage}}
-    {{else}}
-      {{>gameSelectPage}}
-    {{/if}}
-  {{else}}
-    {{>loginPage}}
-  {{/if}}
-  </div>
-</template>
-
 <template name="header">
-  <div id="topBar">
-    <div id="topBarLeft">
-      <div id="title">Zombie Vampire Bus Battle</div>
-    </div>
-    <div id="topBarRight">{{>loginButtons}}</div>
-  </div>
-  </template>
-
-<template name="loginPage">
-<div id="loginPage">
-  {{wipeTeamName}}
-  <div id="title">Zombie Vampire Bus Battle</div>
-  {{#if loggingIn }}
-    <div>Logging In</div>
-  {{else}}
-    <div>You are not currently logged in</div>
-    {{>loginButtons}}
-<!--  {{>loggedInOptions}} -->
-    <div>======</div>
-    <!-- {{>loggedOutOptions}} -->
+<header id="top"><div class='headerTitle'> BLOOD AND BRAINS BUS BATTLE </div>
+  {{#if currentUser}}
+    {{>customOptionsToggle}}
   {{/if}}
-
-  </div>
+</header>
 </template>
+<template name="everything">
+  <div id="main">
+    {{#if currentUser}}
+      {{#if session "team"}}
+        {{>gamePlayPage}}
+      {{else}}
 
-<template name="options">
-  <div id="options">
+        {{>gameSelectPage}}
+      {{/if}}
+    {{else}}
+      {{>loggedOutOptions}}
+      <div id='options-error'></div>
+    {{/if}}
   </div>
 </template>
 
 <template name="gameSelectPage">
   <div id='gameSelect'>
-    <div><h1>Choose a Side</h1></div>
-    <div id="sideZombie" class="zombies">
-      <button class="playZombies"><img src='/zombie-256.png'>Zombies</button>
+    <div><h2>CHOOSE A SIDE</h2></div>
+    <div id="sideVampire">
+      <button class="playVampires"><img src='/vampire-256.png'>VAMPIRES</button>
     </div>
-    <div id="sideVampire" class="vampires">
-      <button class="playVampires"><img src='/vampire-256.png'>Vampires</button>
+    <div id="sideZombie" >
+      <button class="playZombies"><img src='/zombie-256.png'>ZOMBIES</button>
     </div>
-    <div class="loginButtons">{{>loginButtons}}</div>
-  </div>
 
+  </div>
 </template>
 
 <template name="gamePlayPage">
@@ -89,6 +60,8 @@
       BITE PEOPLE
     {{/if}}
     </button>
+
+
   </div>
 </template>
 

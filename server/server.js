@@ -1,6 +1,7 @@
+
 var RSVP = Meteor.npmRequire('rsvp');
 var Firebase = Meteor.npmRequire('firebase');
-var GeoFire = Meteor.npmRequire('geofire');  
+var GeoFire = Meteor.npmRequire('geofire');
 
 Meteor.publish('stops', function() {
   return Stops.find();
@@ -58,7 +59,7 @@ Meteor.startup(function () {
         });
       });
     });
-  };  
+  };
   //fetches all routes from NextBus and stores them to MongoDB Routes
   HTTP.get('http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=sf-muni', function (err, res) {
     //converts XML from NextBus API to JSON
@@ -82,7 +83,7 @@ Meteor.startup(function () {
 // var queryBuses = function(){
 /* temporary suppression of bus data fetching from firebase
 var firebaseRef = new Firebase('https://publicdata-transit.firebaseio.com/');
-var geoFire = new GeoFire(firebaseRef.child("_geofire")); 
+var geoFire = new GeoFire(firebaseRef.child("_geofire"));
 // limit query radius for now
 var radiusInKm = 0.5;
 // center initial query on firebase HQ
@@ -112,7 +113,7 @@ geoQuery.on("key_entered", Meteor.bindEnvironment(function(vehicleId, vehicleLoc
     });
   }));
 }));
-*/  
+*/
 
   /*  // swapping restbus.info for firebase
   HTTP.get('http://restbus.info/api/agencies/sf-muni/vehicles', function(error, results){
@@ -128,3 +129,4 @@ geoQuery.on("key_entered", Meteor.bindEnvironment(function(vehicleId, vehicleLoc
   });
   */
 // };
+
