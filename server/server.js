@@ -18,13 +18,18 @@ Meteor.publish('routes', function() {
 //   return Buses.find();
 // });
 
-Meteor.methods({
-  setUserName: function(name){
-    //check if user already has a team
-    //if they do exit and return error
-    return name;
-  }
-});
+
+  Meteor.publish("players", function () {
+    return Players.find();
+  });
+
+  Meteor.methods({
+    setUserName: function(name){
+      //check if user already has a team
+      //if they do exit and return error
+      return name;
+    }
+  });
 
 Meteor.startup(function () {
   // code to run on server at startup

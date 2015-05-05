@@ -162,7 +162,7 @@ var checkUserLoc = function(team, userLat, userLon){
   var playerId = Players.find({userId: Meteor.userId()}).fetch()[0]._id;
   console.log("userLat", userLat);
   console.log("userLon", userLon);
-  var nearBus = false;
+  var nearBus = true;
   var nearStop = false;
   var firstValidStop = true;
   // var buses = Buses.find({});
@@ -183,16 +183,28 @@ var checkUserLoc = function(team, userLat, userLon){
         console.log('valid stop found');
         nearStop = true;
         firstValidStop = false;
-        if (stop[team] === undefined){
-          Stops.update({_id: stop._id}, {$set: {team: 1}});
+        console.log(team);
+        if (team === "zombies"){
+          if (stop["zombies"] === undefined){
+            Stops.update({_id: stop._id}, {$set: {"zombies": 1}});
+            console.log(stop);
+          }
+          else {
+            Stops.update({_id: stop._id}, {$inc: {"zombies": 1}});
+          }
         }
         else {
-          Stops.update({_id: stop._id}, {$inc: {team: 1}});
+          if (stop["vampires"] === undefined){
+            Stops.update({_id: stop._id}, {$set: {"vampires": 1}});
+          }
+          else {
+            Stops.update({_id: stop._id}, {$inc: {"vampires": 1}});
+          }
         }
-        var timerId = Meteor.setInterval(function() { playerScoreIncr(playerId, stop, team); }, 60000);
+        var timerId = Meteor.setInterval(function() { playerScoreIncr(playerId, stop, team); }, 1000);
         Meteor.setTimeout(function(){
           Meteor.clearInterval(timerId);
-        }, 3600000); //one hour
+        }, 30000); //one hour
       }
     });
   }
@@ -219,7 +231,10 @@ var deg2rad = function(deg) {
 
 var playerScoreIncr = function(playerId, stop, team){
   var otherTeam = team === 'zombies' ? 'vampires' : 'zombies';
-  if (stop[team] > stop[otherTeam]){
+  // console.log(stop);
+  console.log(stop[otherTeam]);
+  if (stop[team] > stop[otherTeam] || stop[otherTeam] === undefined){
+    console.log(otherTeam + stop[otherTeam]);
     Players.update({_id: playerId}, {$inc: {score: 3}});
   }
   else {
