@@ -2,13 +2,6 @@
   //TYPE: bus or stop
   //CONDITION: redness v greeness. (slots are likely only shown in popup);
 
-
-if (Meteor.isClient) {
-
-Meteor.subscribe("players");
-
-Meteor.subscribe("stops");
-
 Meteor.startup(function() {
   theMap = GoogleMaps.load();
 });
@@ -33,7 +26,7 @@ stylesArray =
       stylers: [
         { "visibility": "on" },
         { "hue": "#0000ff" },
-        { "weight": .75 },
+        { "weight": 0.75 },
         { "gamma": 0.31 },
         { "saturation": 100 },
         { "lightness": -7 }
@@ -103,6 +96,24 @@ Template.map.onCreated(function() {
 
     // the code below automatically detects changes in the Markers mongo collection and updates the map accordingly.  property values from
     // the collection can be referred to so that look and behavior can be customized based on properties of the data point
+    
+    //creates a draggable marker at the center of the map on load
+    var draggableMarker = new google.maps.Marker({
+      draggable: true,
+      position: new google.maps.LatLng(37.7577,-122.4376),
+      map: map.instance,
+      title: "Your fake location",
+     // icon: //can change depending on team 
+    });
+    
+    //gets the draggable marker's position when done dragging
+    google.maps.event.addListener(draggableMarker, 'dragend', function (event) {
+      var playerLat = this.getPosition().lat();
+      var playerLng = this.getPosition().lng();
+      console.log("The draggableMarker's position is: ", playerLat, playerLng);
+      //stores the marker's position in a session AVAILAIBLE FOR USE EVERYWHERE
+      Session.set('fakePosition', {lat: playerLat, lng: playerLng});
+    });
 
     var markers = {};
 
@@ -138,4 +149,3 @@ Template.map.onCreated(function() {
     });
   });
 });
-}

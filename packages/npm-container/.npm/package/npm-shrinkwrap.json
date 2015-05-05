@@ -1,16 +1,16 @@
 {
   "dependencies": {
     "firebase": {
-      "version": "http://registry.npmjs.org/firebase/-/firebase-2.2.4.tgz",
+      "version": "2.2.4",
       "dependencies": {
         "faye-websocket": {
-          "version": "http://registry.npmjs.org/faye-websocket/-/faye-websocket-0.9.3.tgz",
+          "version": "0.9.3",
           "dependencies": {
             "websocket-driver": {
-              "version": "http://registry.npmjs.org/websocket-driver/-/websocket-driver-0.5.2.tgz",
+              "version": "0.5.2",
               "dependencies": {
                 "websocket-extensions": {
-                  "version": "http://registry.npmjs.org/websocket-extensions/-/websocket-extensions-0.1.1.tgz"
+                  "version": "0.1.1"
                 }
               }
             }
@@ -19,10 +19,10 @@
       }
     },
     "geofire": {
-      "version": "http://registry.npmjs.org/geofire/-/geofire-3.2.2.tgz"
+      "version": "3.2.2"
     },
     "rsvp": {
-      "version": "http://registry.npmjs.org/rsvp/-/rsvp-3.0.18.tgz"
+      "version": "3.0.18"
     }
   }
 }

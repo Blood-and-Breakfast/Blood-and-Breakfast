@@ -1,4 +1,3 @@
-
 var RSVP = Meteor.npmRequire('rsvp');
 var Firebase = Meteor.npmRequire('firebase');
 var GeoFire = Meteor.npmRequire('geofire');
@@ -89,18 +88,15 @@ var radiusInKm = 0.5;
 // center initial query on firebase HQ
 var center = [37.785326, -122.405696];
 var vehiclesInQuery = {};
-
 // Create a new GeoQuery instance
 var geoQuery = geoFire.query({
   center: center,
   radius: radiusInKm
 });
-
 geoQuery.on("key_entered", Meteor.bindEnvironment(function(vehicleId, vehicleLocation) {
   // Specify that the vehicle has entered this query
   vehicleId = vehicleId.split(":")[1];
   vehiclesInQuery[vehicleId] = true;
-
   // Look up the vehicle's data in the Transit Open Data Set
   firebaseRef.child("sf-muni/vehicles").child(vehicleId).once("value", Meteor.bindEnvironment(function(dataSnapshot) {
     // Get the vehicle data from the Open Data Set
@@ -129,4 +125,3 @@ geoQuery.on("key_entered", Meteor.bindEnvironment(function(vehicleId, vehicleLoc
   });
   */
 // };
-
