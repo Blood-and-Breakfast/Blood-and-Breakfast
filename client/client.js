@@ -5,6 +5,10 @@
 
 if (Meteor.isClient) {
 
+Meteor.subscribe("players");
+
+Meteor.subscribe("stops");
+
 Meteor.startup(function() {
   theMap = GoogleMaps.load();
 });
