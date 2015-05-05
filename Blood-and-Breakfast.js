@@ -1,8 +1,8 @@
 
-Markers = new Mongo.Collection('markers');
+Markers = new Mongo.Collection('markers'); // includes buses, stops, player
 Stops = new Mongo.Collection("stops");
 Players = new Mongo.Collection("players"); // we need to use this
-Buses = new Mongo.Collection("buses");
+// Buses = new Mongo.Collection("buses");
 Routes = new Mongo.Collection('routes');
 
 
@@ -48,7 +48,8 @@ if (Meteor.isClient) {
   Template.registerHelper("session", function(key){
     return Session.get(key);
   });
-
+  
+  //placeholder/testing
   Template.everything.helpers({
     giraffe: function () {
       return "Giraffe";
@@ -155,7 +156,7 @@ if (Meteor.isClient) {
   });
 }
 
-var delta = 60; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
+var delta = 200; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
 
 var checkUserLoc = function(team, userLat, userLon){
   var playerId = Players.find({userId: Meteor.userId()}).fetch()[0]._id;
@@ -164,15 +165,16 @@ var checkUserLoc = function(team, userLat, userLon){
   var nearBus = false;
   var nearStop = false;
   var firstValidStop = true;
-  var buses = Buses.find({});
-  console.log('inCheckUserLoc');
-  buses.forEach(function (bus) {
-    if (getDistanceFromLatLonInKm(userLat, userLon, bus.lat, bus.lon) < delta){
-      nearBus = true;
-      // can I insert a break statement here?  this forEach is a meteor forEach so I dont know its rules
-    }
-  });
-  if (nearBus){
+  // var buses = Buses.find({});
+  // console.log('inCheckUserLoc');
+  // buses.forEach(function (bus) {
+  //   if (getDistanceFromLatLonInKm(userLat, userLon, bus.lat, bus.lon) < delta){
+  //     nearBus = true;
+      
+  //   }
+  // });
+  // if (nearBus){
+  if (true){
     // chcek if user is near busStop
     console.log('test');
     var stops = Stops.find({});
