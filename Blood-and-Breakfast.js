@@ -172,7 +172,7 @@ var checkUserLoc = function(team, userLat, userLon){
   // });
   // if (nearBus){
   if (true){
-    // chcek if user is near busStop
+    // check if user is near busStop
     console.log('test');
     var stops = Stops.find({});
     stops.forEach(function (stop) {
