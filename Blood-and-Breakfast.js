@@ -71,14 +71,15 @@ if (Meteor.isClient) {
       // Set the checked property to the opposite of its current value
       setTeamName("vampires");
     },
-     "click .bite": function () {
-      // if user is not yet in players collection, but them there
+    "click .bite": function () {
+      // if user is not yet in players collection, put them there
       if (Players.find({userId: Meteor.userId()}).fetch().length < 1){
         Players.insert({userId: Meteor.userId(), score: 0});
       }
-      var loc = Geolocation.currentLocation();
-      var userLat = loc.coords.latitude;
-      var userLon = loc.coords.longitude;
+      var loc = JSON.parse(Session.keys.fakePosition) || 
+                Geolocation.currentLocation().coords;
+      var userLat = loc.latitude;
+      var userLon = loc.longitude;
       // triggerBite(Session.get("team"));
       checkUserLoc(Session.get("team"), userLat, userLon);
 
@@ -153,7 +154,7 @@ if (Meteor.isClient) {
   });
 }
 
-var delta = 200; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
+var delta = 0.5; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
 
 var checkUserLoc = function(team, userLat, userLon){
   var playerId = Players.find({userId: Meteor.userId()}).fetch()[0]._id;
