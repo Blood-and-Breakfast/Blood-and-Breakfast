@@ -100,7 +100,7 @@ Template.map.onCreated(function() {
     //creates a draggable marker at the center of the map on load
     var draggableMarker = new google.maps.Marker({
       draggable: true,
-      position: new google.maps.LatLng(37.7577,-122.4376),
+      position: new google.maps.LatLng(37.7577, -122.4376),
       map: map.instance,
       title: "Your fake location",
      // icon: //can change depending on team 
@@ -112,7 +112,7 @@ Template.map.onCreated(function() {
       var playerLng = this.getPosition().lng();
       console.log("The draggableMarker's position is: ", playerLat, playerLng);
       //stores the marker's position in a session AVAILAIBLE FOR USE EVERYWHERE
-      Session.set('fakePosition', {lat: playerLat, lng: playerLng});
+      Session.set('fakePosition', {latitude: playerLat, longitude: playerLng});
     });
 
     var markers = {};
