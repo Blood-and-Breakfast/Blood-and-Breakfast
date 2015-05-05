@@ -14,9 +14,9 @@ Meteor.publish('routes', function() {
   return Routes.find();
 });
 
-Meteor.publish('buses', function() {
-  return Buses.find();
-});
+// Meteor.publish('buses', function() {
+//   return Buses.find();
+// });
 
 Meteor.methods({
   setUserName: function(name){
@@ -41,7 +41,7 @@ Meteor.startup(function () {
         if (err) {
           console.log("Error getting stops for Route "+ tag);
         }
-        var stops = parsedJson.body['route'][0]['stop'];
+        var stops = parsedJson.body.route[0].stop;
         _.each(stops, function (obj) {
           Stops.upsert({stopId: obj.$.stopId}, {
             tag: obj.$.tag,
@@ -49,10 +49,10 @@ Meteor.startup(function () {
             lat: parseFloat(obj.$.lat),
             lon: parseFloat(obj.$.lon),
             stopId: obj.$.stopId
-          })
-        })
+          });
+        });
       });
-    })
+    });
   };  
   //fetches all routes from NextBus and stores them to MongoDB Routes
   HTTP.get('http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=sf-muni', function (err, res) {
@@ -75,6 +75,7 @@ Meteor.startup(function () {
 });
 
 // var queryBuses = function(){
+/* temporary suppression of bus data fetching from firebase
 var firebaseRef = new Firebase('https://publicdata-transit.firebaseio.com/');
 var geoFire = new GeoFire(firebaseRef.child("_geofire")); 
 // limit query radius for now
@@ -98,9 +99,15 @@ geoQuery.on("key_entered", Meteor.bindEnvironment(function(vehicleId, vehicleLoc
   firebaseRef.child("sf-muni/vehicles").child(vehicleId).once("value", Meteor.bindEnvironment(function(dataSnapshot) {
     // Get the vehicle data from the Open Data Set
     vehicle = dataSnapshot.val();
-    Buses.insert({lat: vehicle.lat, lon: vehicle.lon});
+    console.log(vehicle);
+    Buses.insert({
+      lat:   vehicle.lat,
+      lon:   vehicle.lon,
+      route: vehicle.routeTag
+    });
   }));
 }));
+*/  
 
   /*  // swapping restbus.info for firebase
   HTTP.get('http://restbus.info/api/agencies/sf-muni/vehicles', function(error, results){
@@ -116,5 +123,3 @@ geoQuery.on("key_entered", Meteor.bindEnvironment(function(vehicleId, vehicleLoc
   });
   */
 // };
-// Meteor.setInterval(queryBuses, 30000); // uncomment this line when you want to start making queries
-

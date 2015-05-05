@@ -9,7 +9,7 @@ if (Meteor.isClient) {
   Meteor.subscribe('stops');
   Meteor.subscribe('markers');
   Meteor.subscribe('routes');
-  Meteor.subscribe('buses');
+  // Meteor.subscribe('buses');
 
 
   //pulls all stops out of db and adds markers for them
