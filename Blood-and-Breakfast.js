@@ -1,3 +1,4 @@
+
 Markers = new Mongo.Collection('markers'); // includes buses, stops, player
 Stops = new Mongo.Collection("stops");
 Players = new Mongo.Collection("players"); // we need to use this
@@ -58,11 +59,11 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.loginPage.helpers({
-    wipeTeamName: function(){
-      Session.set("team", null);
-    }
-  });
+  // Template.loginPage.helpers({
+  //   wipeTeamName: function(){
+  //     Session.set("team", null);
+  //   }
+  // });
 
   Template.everything.events({
     "click .playZombies": function () {
