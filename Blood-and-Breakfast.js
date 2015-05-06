@@ -1,5 +1,3 @@
-
-Markers = new Mongo.Collection('markers'); // includes buses, stops, player
 Stops = new Mongo.Collection("stops");
 Players = new Mongo.Collection("players"); // we need to use this
 Buses = new Mongo.Collection("buses");
@@ -87,10 +85,6 @@ if (Meteor.isClient) {
 
     }
   }); 
-
-  Template.gamePlayPage.rendered = function (){
-    addBusStops(Session.get('loc'));
-  };
 
   //TODO: this is only setting team name temp in client session
   //Need to attach it to the user in db
@@ -235,4 +229,3 @@ var playerScoreIncr = function(playerId, stop, team){
     Players.update({_id: playerId}, {$inc: {score: 1}});
   }
 };
-
