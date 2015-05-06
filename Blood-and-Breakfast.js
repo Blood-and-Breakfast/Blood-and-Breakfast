@@ -11,7 +11,7 @@ if (Meteor.isClient) {
   Meteor.startup(function() {
     //fire this here to get permission to use geoloc in browser
     Geolocation.currentLocation();
-    Session.set("loc", playerLoc(true));
+    // Session.set("loc", playerLoc(true));
   });
 
   Deps.autorun(function(){
@@ -111,7 +111,7 @@ if (Meteor.isClient) {
     if(!Session.get('team')) return;
 
     var isZombie = Session.get('isZombie');
-    setMapStyleToTeam(isZombie);
+    // setMapStyleToTeam(isZombie);
 
     var team = "zombies";
     var notTeam = "vampires";

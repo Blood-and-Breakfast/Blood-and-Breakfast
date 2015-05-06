@@ -2,9 +2,6 @@
   //TYPE: bus or stop
   //CONDITION: redness v greeness. (slots are likely only shown in popup);
 
-
-if (Meteor.isClient) {
-
 Meteor.subscribe("players");
 
 Meteor.subscribe("stops");
@@ -181,4 +178,4 @@ Template.map.onCreated(function() {
     });
   });
 });
-}
+
