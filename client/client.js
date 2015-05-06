@@ -46,7 +46,7 @@ stylesArray =
     }
   ];
 
-  setMapStyleToTeam = function(){
+  var setMapStyleToTeam = function(){
 
     var hue = "#ff0000";
     if(Session.get("isZombie")){
@@ -85,6 +85,26 @@ Template.map.helpers({
   }
 });
 
+var addBusStops = function(geolocation){
+  var latGT = parseFloat(geolocation.latitude) - 0.005;
+  var latLT = parseFloat(geolocation.latitude) + 0.005;
+  var lonGT = parseFloat(geolocation.longitude) - 0.005;
+  var lonLT = parseFloat(geolocation.longitude) + 0.005;
+  //query for bus stops based on input location
+  var busStops = Stops.find({'lat': {$gt: latGT, $lt: latLT}, 'lon': {$gt: lonGT, $lt: lonLT}}).fetch();
+  //finds all bustops and add them to Markers collection
+  //var busStops = Stops.find({}).fetch();
+  var stop;
+  //Markers.insert({ lat: 37.7833, lng: -122.4167, icon: "./blue-bus-stop.png" }); //this is a test line of code with which you can explore marker options
+  var count = 0;
+  for(var i = 0; i < busStops.length; i++){
+    //console.log("Stop Count", count++);
+    stop = busStops[i];
+    if (!Markers.findOne({lat: stop.lat, lng: stop.lon})) {
+      Markers.insert({lat: stop.lat, lng: stop.lon, icon: "./blue-bus-stop.png" });
+    }
+  }
+};
 
 Template.map.onCreated(function() {
 
@@ -111,8 +131,11 @@ Template.map.onCreated(function() {
       var playerLat = this.getPosition().lat();
       var playerLng = this.getPosition().lng();
       console.log("The draggableMarker's position is: ", playerLat, playerLng);
+
       //stores the marker's position in a session AVAILAIBLE FOR USE EVERYWHERE
       Session.set('fakePosition', {latitude: playerLat, longitude: playerLng});
+      addBusStops(Session.get('fakePosition'));
+
     });
 
     var markers = {};

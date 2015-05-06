@@ -86,9 +86,9 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.gamePlayPage.rendered = function (){
-    addBusStops(Session.get('loc'));
-  };
+  // Template.gamePlayPage.rendered = function (){
+  //   addBusStops(Session.get('loc'));
+  // };
 
   //TODO: this is only setting team name temp in client session
   //Need to attach it to the user in db
@@ -104,7 +104,7 @@ if (Meteor.isClient) {
   };
 
   //handles updating all divs and templates to a theme based on team
-  updateClientToTeam = function(){
+  var updateClientToTeam = function(){
 
     if(!Session.get('team')) return;
 
