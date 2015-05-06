@@ -2,6 +2,12 @@
   //TYPE: bus or stop
   //CONDITION: redness v greeness. (slots are likely only shown in popup);
 
+Meteor.subscribe("players");
+
+Meteor.subscribe("stops");
+
+Meteor.subscribe("buses");
+
 Meteor.startup(function() {
   theMap = GoogleMaps.load();
 });
@@ -172,3 +178,4 @@ Template.map.onCreated(function() {
     });
   });
 });
+

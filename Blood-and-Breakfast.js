@@ -2,16 +2,16 @@
 Markers = new Mongo.Collection('markers'); // includes buses, stops, player
 Stops = new Mongo.Collection("stops");
 Players = new Mongo.Collection("players"); // we need to use this
-// Buses = new Mongo.Collection("buses");
+Buses = new Mongo.Collection("buses");
 Routes = new Mongo.Collection('routes');
-
+Buses.insert({apiMarker: true, apiStatus: false});
 
 if (Meteor.isClient) {
 
   Meteor.startup(function() {
     //fire this here to get permission to use geoloc in browser
     Geolocation.currentLocation();
-    Session.set("loc", playerLoc(true));
+    // Session.set("loc", playerLoc(true));
   });
 
   Deps.autorun(function(){
@@ -32,6 +32,9 @@ if (Meteor.isClient) {
       setBodyToWindowSize();
     });
 
+  };
+
+  Template.header.rendered = function(){
   };
 
   var setBodyToWindowSize = function(){
@@ -56,11 +59,11 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.everything.helpers({
-    wipeTeamName: function(){
-      Session.set("team", null);
-    }
-  });
+  // Template.loginPage.helpers({
+  //   wipeTeamName: function(){
+  //     Session.set("team", null);
+  //   }
+  // });
 
   Template.everything.events({
     "click .playZombies": function () {
@@ -71,24 +74,23 @@ if (Meteor.isClient) {
       // Set the checked property to the opposite of its current value
       setTeamName("vampires");
     },
-    "click .bite": function () {
-      // if user is not yet in players collection, put them there
+     "click .bite": function () {
+      // if user is not yet in players collection, but them there
       if (Players.find({userId: Meteor.userId()}).fetch().length < 1){
         Players.insert({userId: Meteor.userId(), score: 0});
       }
-      var loc = JSON.parse(Session.keys.fakePosition) || 
-                Geolocation.currentLocation().coords;
-      var userLat = loc.latitude;
-      var userLon = loc.longitude;
+      var loc = Geolocation.currentLocation();
+      var userLat = loc.coords.latitude;
+      var userLon = loc.coords.longitude;
       // triggerBite(Session.get("team"));
       checkUserLoc(Session.get("team"), userLat, userLon);
 
     }
-  });
+  }); 
 
-  // Template.gamePlayPage.rendered = function (){
-  //   addBusStops(Session.get('loc'));
-  // };
+  Template.gamePlayPage.rendered = function (){
+    addBusStops(Session.get('loc'));
+  };
 
   //TODO: this is only setting team name temp in client session
   //Need to attach it to the user in db
@@ -104,12 +106,12 @@ if (Meteor.isClient) {
   };
 
   //handles updating all divs and templates to a theme based on team
-  var updateClientToTeam = function(){
+  updateClientToTeam = function(){
 
     if(!Session.get('team')) return;
 
     var isZombie = Session.get('isZombie');
-    setMapStyleToTeam(isZombie);
+    // setMapStyleToTeam(isZombie);
 
     var team = "zombies";
     var notTeam = "vampires";
@@ -154,38 +156,34 @@ if (Meteor.isClient) {
   });
 }
 
-var delta = 0.5; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
+var delta = 200; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
 
 var checkUserLoc = function(team, userLat, userLon){
   var playerId = Players.find({userId: Meteor.userId()}).fetch()[0]._id;
-  console.log("userLat", userLat);
-  console.log("userLon", userLon);
-  var nearBus = true;
   var nearStop = false;
   var firstValidStop = true;
-  // var buses = Buses.find({});
-  // console.log('inCheckUserLoc');
-  // buses.forEach(function (bus) {
-  //   if (getDistanceFromLatLonInKm(userLat, userLon, bus.lat, bus.lon) < delta){
-  //     nearBus = true;
-      
-  //   }
-  // });
-  // if (nearBus){
-  if (true){
-    // check if user is near busStop
-    console.log('test');
+  var nearBus;
+  if (Buses.find({apiMarker: true}).fetch()[0].apiStatus){
+    var buses = Buses.find({});
+    buses.forEach(function (bus) {
+      if (getDistanceFromLatLonInKm(userLat, userLon, bus.lat, bus.lon) < delta){
+        nearBus = true;
+      }
+    });
+  }
+  else {
+    nearBus = true;
+  }
+  if (nearBus){
+    // chcek if user is near busStop
     var stops = Stops.find({});
     stops.forEach(function (stop) {
       if (getDistanceFromLatLonInKm(userLat, userLon, stop.lat, stop.lon) < delta && firstValidStop){
-        console.log('valid stop found');
         nearStop = true;
         firstValidStop = false;
-        console.log(team);
         if (team === "zombies"){
           if (stop["zombies"] === undefined){
             Stops.update({_id: stop._id}, {$set: {"zombies": 1}});
-            console.log(stop);
           }
           else {
             Stops.update({_id: stop._id}, {$inc: {"zombies": 1}});
@@ -212,13 +210,13 @@ var checkUserLoc = function(team, userLat, userLon){
 var getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1);
-  var a =
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
     Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ;
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)                                                                                                                 
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
   var d = R * c; // Distance in km
   return d;
 };
@@ -230,15 +228,11 @@ var deg2rad = function(deg) {
 var playerScoreIncr = function(playerId, stop, team){
   var otherTeam = team === 'zombies' ? 'vampires' : 'zombies';
   // console.log(stop);
-  console.log(stop[otherTeam]);
   if (stop[team] > stop[otherTeam] || stop[otherTeam] === undefined){
-    console.log(otherTeam + stop[otherTeam]);
     Players.update({_id: playerId}, {$inc: {score: 3}});
   }
   else {
     Players.update({_id: playerId}, {$inc: {score: 1}});
   }
-  console.log('inPLater');
-  console.log(Players.find({_id: playerId}).fetch()[0].score);
 };
 
