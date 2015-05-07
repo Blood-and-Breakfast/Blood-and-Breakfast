@@ -23,6 +23,11 @@ Meteor.publish('routes', function() {
     return Players.find();
   });
 
+
+  Meteor.publish("buses", function () {
+    return Buses.find();
+  });
+
   Meteor.methods({
     setUserName: function(name){
       //check if user already has a team

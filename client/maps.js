@@ -7,6 +7,7 @@ Meteor.subscribe('stops');
 Meteor.subscribe('markers');
 Meteor.subscribe('routes');
 Meteor.subscribe('players');
+Meteor.subscribe('buses');
 
 
 Template.map.rendered = function() {

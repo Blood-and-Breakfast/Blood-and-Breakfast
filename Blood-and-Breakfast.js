@@ -1,8 +1,6 @@
 Stops = new Mongo.Collection("stops");
 Players = new Mongo.Collection("players"); // we need to use this
-Buses = new Mongo.Collection("buses");
 Routes = new Mongo.Collection('routes');
-Buses.insert({apiMarker: true, apiStatus: false});
 
 if (Meteor.isClient) {
 
