@@ -1,3 +1,4 @@
+
 Stops = new Mongo.Collection("stops");
 Players = new Mongo.Collection("players"); // we need to use this
 Buses = new Mongo.Collection("buses");
@@ -6,10 +7,22 @@ Buses.insert({apiMarker: true, apiStatus: false});
 
 if (Meteor.isClient) {
 
+
+  Meteor.subscribe('players');
+
   Meteor.startup(function() {
     //fire this here to get permission to use geoloc in browser
     Geolocation.currentLocation();
-    // Session.set("loc", playerLoc(true));
+    //TEST***
+    for(var i = 0; i < 5; i++){
+        Players.insert({score: Math.round(Math.random() * 100), name: "ZombieAI", team: "zombies"});
+        console.log("adding players");
+    }
+    for(var i = 0; i < 5; i++){
+        Players.insert({score: Math.round(Math.random() * 100), name: "VampireAI", team: "vampires"});
+        console.log("adding players");
+    }
+    //END TEST
   });
 
   Deps.autorun(function(){
@@ -46,7 +59,23 @@ if (Meteor.isClient) {
   Template.registerHelper("session", function(key){
     return Session.get(key);
   });
-  
+
+  Template.leaderBoard.helpers({
+    playersByScore:  function () {
+      return Players.find({}, {sort: {score: -1}});
+    }
+  });
+
+  toggleLeaderBoard = function(){
+    var isOpen = Session.get("leaderBoardIsOpen");
+    if(isOpen){
+      Session.set("leaderBoardIsOpen", false);
+    }else{
+      Session.set("leaderBoardIsOpen", true);
+    }
+
+  }
+
   //placeholder/testing
   Template.everything.helpers({
     giraffe: function () {
@@ -56,12 +85,6 @@ if (Meteor.isClient) {
       return Session.get("team");
     }
   });
-
-  // Template.loginPage.helpers({
-  //   wipeTeamName: function(){
-  //     Session.set("team", null);
-  //   }
-  // });
 
   Template.everything.events({
     "click .playZombies": function () {
@@ -75,10 +98,7 @@ if (Meteor.isClient) {
      "click .bite": function () {
       // if user is not yet in players collection, but them there
       if (Players.find({userId: Meteor.userId()}).fetch().length < 1){
-        Players.insert({
-          userId:   Meteor.userId(),
-          username: Meteor.user().username,
-          score: 0});
+        Players.insert({userId: Meteor.userId(), score: 0});
       }
       var loc = Geolocation.currentLocation();
       var userLat = loc.coords.latitude;
@@ -87,7 +107,7 @@ if (Meteor.isClient) {
       checkUserLoc(Session.get("team"), userLat, userLon);
 
     }
-  }); 
+  });
 
   //TODO: this is only setting team name temp in client session
   //Need to attach it to the user in db
@@ -207,13 +227,13 @@ var checkUserLoc = function(team, userLat, userLon){
 var getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
+  var dLon = deg2rad(lon2-lon1);
+  var a =
     Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)                                                                                                                 
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   var d = R * c; // Distance in km
   return d;
 };
@@ -232,3 +252,4 @@ var playerScoreIncr = function(playerId, stop, team){
     Players.update({_id: playerId}, {$inc: {score: 1}});
   }
 };
+>>>>>>> (Feature) added leaderboard v1, accessed via account button
