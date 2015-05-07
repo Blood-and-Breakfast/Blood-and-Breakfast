@@ -14,10 +14,6 @@ Meteor.publish('routes', function() {
   return Routes.find();
 });
 
-Meteor.publish('buses', function(){
-  return Buses.find();
-});
-
 // Meteor.publish('buses', function() {
 //   return Buses.find();
 // });
@@ -113,13 +109,9 @@ geoQuery.on("key_entered", Meteor.bindEnvironment(function(vehicleId, vehicleLoc
     });
   }));
 }));
-<<<<<<< HEAD
 */
 
   /*  // swapping restbus.info for firebase
-=======
-*/  
-var queryBuses = function(){
   HTTP.get('http://restbus.info/api/agencies/sf-muni/vehicles', function(error, results){
     if (!error){
       Buses.remove({});
@@ -127,14 +119,8 @@ var queryBuses = function(){
         Buses.insert({lat: element.lat, lon: element.lon});
         console.log(element.lat);
       });
-      Buses.update({apiMarker: true}, {$set: {apiStatus: true}});
     } else {
       console.log(error);
-      Buses.update({apiMarker: true}, {$set: {apiStatus: false}});
     }
   });
-// };
-};
- 
- // Meteor.setInterval(queryBuses, 60000) 
-// };
+  */
