@@ -23,6 +23,7 @@
 </template>
 <template name="everything">
   <div id="main">
+    <div id="leftBG" class="zombies"></div><div id="rightBG" class="vampires"></div>
     {{#if currentUser}}
       {{#if session "team"}}
         {{>gamePlayPage}}
@@ -31,15 +32,20 @@
         {{>gameSelectPage}}
       {{/if}}
     {{else}}
-      {{>loggedOutOptions}}
-      <div id='options-error'></div>
+      <div id="loginPage">
+        <div id="titleImage"></div>
+        <div id="stackedOptions">
+          {{>loggedOutOptions}}
+          <div id='options-error'></div>
+        </div>
+      </div>
     {{/if}}
   </div>
 </template>
 
 <template name="gameSelectPage">
   <div id='gameSelect'>
-    <div><h2>CHOOSE A SIDE</h2></div>
+    <div><div id="choose">CHOOSE A SIDE</div></div>
     <div id="sideVampire">
       <button class="playVampires"><img src='/vampire-256.png'>VAMPIRES</button>
     </div>
