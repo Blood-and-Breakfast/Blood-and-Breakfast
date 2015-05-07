@@ -252,4 +252,3 @@ var playerScoreIncr = function(playerId, stop, team){
     Players.update({_id: playerId}, {$inc: {score: 1}});
   }
 };
->>>>>>> (Feature) added leaderboard v1, accessed via account button
