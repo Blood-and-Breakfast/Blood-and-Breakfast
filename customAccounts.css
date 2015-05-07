@@ -173,7 +173,7 @@ Or use it in the provided options flyout, etc */
 }
 
 body .loggedOutOptions {
-  width: 20%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
