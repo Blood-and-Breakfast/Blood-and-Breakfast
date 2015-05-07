@@ -121,7 +121,6 @@ box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.49);
 
 }
 
-
 #stackedOptions{
   vertical-align: top;
   display: inline-block;
@@ -185,10 +184,6 @@ html #gameSelect {
   }
 }
 
-
-
-
-
 /*#topBar{
 
   height: 40px;
@@ -226,6 +221,67 @@ html #gameSelect {
   width: 100%;
   height: 100%;
 }
+
+#leaderBoard{
+  display: inline-block;
+  position: fixed;
+  z-index: 1001;
+  width: 80%;
+  height: 80%;
+
+  border: 2px solid black;
+  top: 10%;
+  left: 10%;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+
+
+}
+#leaderTitle{
+  display: inline-block;
+  height: 10%;
+  font-size: 1.75em;
+  width: 100%;
+}
+
+#leaderBoardInner{
+  color: white;
+  font-size: 1.5em;
+  display: inline-block;
+  width: 96%;
+  height: 90%;
+  text-align: left;
+  overflow: scroll;
+  border: 2px solid black;
+  padding: .5em;
+}
+
+html #leaderOL li{
+
+}
+
+html #leaderOL li:nth-child(even).zombies{
+  width: 100%;
+  background-color: #007513;
+}
+
+html #leaderOL li:nth-child(odd).zombies {
+  color: #cbcbcb;
+}
+
+html #leaderOL  li:nth-child(even).vampires{
+  width: 100%;
+  background-color: #750C00;
+}
+
+html #leaderOL  li:nth-child(odd).vampires{
+  color: #cbcbcb;
+}
+
+
 div .zombies{
   background-color: #008513;
 
@@ -277,7 +333,7 @@ button.bite{
   border: 2.5px double black;
   text-align: center;
   margin-top: -50px;
-  z-index: 1000;
+  z-index: 998;
 }
 
 

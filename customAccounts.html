@@ -34,6 +34,8 @@
 
 <template name="loggedInOptions">
   <div id="optionsLI" class="options">
+    <button class="optionsButton" id="openLeaderBoard" onclick="toggleLeaderBoard()">LEADERS</button>
+    <div>---</div>
     {{#if checkChangePasswordIsOpen}}
       <input id="input-password-change-current" type="password" placeholder="Current Password" class="optionsInput">
       <input id="input-password-change-new" type="password" placeholder="New Password" class="optionsInput">

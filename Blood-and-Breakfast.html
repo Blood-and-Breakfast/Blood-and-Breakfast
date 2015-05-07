@@ -65,10 +65,27 @@
     {{else}}
       BITE PEOPLE
     {{/if}}
-    </button>
 
+    </button>
+    {{#if session "leaderBoardIsOpen"}}
+      {{>leaderBoard}}
+    {{/if}}
+  </div>
+</template>
+
+<template name="leaderBoard">
+  <div id="leaderBoard" class="outerShadow {{session 'team'}}">
+  <div id="leaderTitle">LEADERS</div>
+    <div id="leaderBoardInner" class="">
+      <ol id="leaderOL">
+        {{#each playersByScore}}
+          <li class="{{team}}"><span class="boardName">NAME: {{name}} | </span><span class="boardTeam"> TEAM:{{team}} | </span><span class="boardScore"> SCORE: {{score}}</span></li>
+        {{/each}}
+      </ol>
+    </div>
 
   </div>
+
 </template>
 
 
