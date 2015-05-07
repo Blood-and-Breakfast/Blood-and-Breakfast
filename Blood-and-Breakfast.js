@@ -75,7 +75,10 @@ if (Meteor.isClient) {
      "click .bite": function () {
       // if user is not yet in players collection, but them there
       if (Players.find({userId: Meteor.userId()}).fetch().length < 1){
-        Players.insert({userId: Meteor.userId(), score: 0});
+        Players.insert({
+          userId:   Meteor.userId(),
+          username: Meteor.user().username,
+          score: 0});
       }
       var loc = Geolocation.currentLocation();
       var userLat = loc.coords.latitude;

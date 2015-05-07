@@ -6,9 +6,9 @@ Meteor.publish('stops', function() {
   return Stops.find();
 });
 
-Meteor.publish('markers', function() {
-  return Markers.find();
-});
+// Meteor.publish('markers', function() {
+//   return Markers.find();
+// });
 
 Meteor.publish('routes', function() {
   return Routes.find();
