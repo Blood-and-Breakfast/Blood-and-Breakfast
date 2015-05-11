@@ -98,9 +98,9 @@ if (Meteor.isClient) {
       if (Players.find({userId: Meteor.userId()}).fetch().length < 1){
         Players.insert({userId: Meteor.userId(), score: 0});
       }
-      var loc = Geolocation.currentLocation();
-      var userLat = loc.coords.latitude;
-      var userLon = loc.coords.longitude;
+      var loc = Session.get('fakePosition');
+      var userLat = loc.lat;
+      var userLon = loc.lon;
       // triggerBite(Session.get("team"));
       checkUserLoc(Session.get("team"), userLat, userLon);
 
@@ -171,7 +171,7 @@ if (Meteor.isClient) {
   });
 }
 
-var delta = 200; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
+var delta = 0.05; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
 
 var checkUserLoc = function(team, userLat, userLon){
   var playerId = Players.find({userId: Meteor.userId()}).fetch()[0]._id;
