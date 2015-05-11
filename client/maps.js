@@ -38,21 +38,24 @@ Template.map.rendered = function() {
     console.log("AutoRun has STARTED ==========================");
     gmaps.deleteCurrentMarkers();
     //get bus stops near the draggable marker
-    var findLocalStops = function(){
+    var findLocalStopsAndBuses = function(){
       var fakePosition = Session.get('fakePosition');
       var latGT = parseFloat(fakePosition.lat) - 0.005;
       var latLT = parseFloat(fakePosition.lat) + 0.005;
       var lonGT = parseFloat(fakePosition.lon) - 0.005;
       var lonLT = parseFloat(fakePosition.lon) + 0.005;
-      return Stops.find({'lat': {$gt: latGT, $lt: latLT}, 'lon': {$gt: lonGT, $lt: lonLT}}).fetch();
+      var stops = Stops.find({'lat': {$gt: latGT, $lt: latLT}, 'lon': {$gt: lonGT, $lt: lonLT}}).fetch();
+      var buses = Buses.find({'lat': {$gt: latGT, $lt: latLT}, 'lon': {$gt: lonGT, $lt: lonLT}}).fetch();
+      return stops.concat(buses);
     };
-    var stops = findLocalStops();
+    var stops = findLocalStopsAndBuses();
     //create a marker for each stop
     _.each(stops, function(stop) {
       if (typeof stop.lat !== 'undefined' &&
         typeof stop.lon !== 'undefined') {
 
           var objMarker = {
+            stopId: stop.stopId,
             id: stop._id,
             lat: stop.lat,
             lng: stop.lon,

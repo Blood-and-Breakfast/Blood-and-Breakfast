@@ -34,17 +34,21 @@ gmaps = {
       this.markers = [];
     },
     
-    //makes individual bus markers red or green based on who controls that bus stop, blue if safe or equal
-    chooseMarker: function (stop) {
-      var stopUrl;
-      if (!stop.zombies && !stop.vampires || stop.vampires === stop.zombies) {
-        stopUrl = './safe-bus-stop.png';
-      } else if (stop.zombies && stop.vampires) {
-        stopUrl = (stop.vampires > stop.zombies) ? './vampire-bus-stop.png' : './zombie-bus-stop.png';
-      } else if (stop.zombies || stop.vampires) {
-        stopUrl = stop.zombies ? './zombie-bus-stop.png' : './vampire-bus-stop.png';
+    //makes individual bus markers red or green based on who controls that bus marker, blue if safe or equal
+    chooseMarker: function (marker) {
+      var markerUrl;
+      //if no stop id, marker is a bus and not a bus stop
+      if (!marker.stopId) {
+        return './bus-48.png';
       }
-      return stopUrl;
+      if (!marker.zombies && !marker.vampires || marker.vampires === marker.zombies) {
+        markerUrl = './safe-bus-stop.png';
+      } else if (marker.zombies && marker.vampires) {
+        markerUrl = (marker.vampires > marker.zombies) ? './vampire-bus-stop.png' : './zombie-bus-stop.png';
+      } else if (marker.zombies || marker.vampires) {
+        markerUrl = marker.zombies ? './zombie-bus-stop.png' : './vampire-bus-stop.png';
+      }
+      return markerUrl;
     },
  
     // calculate and move the bound box based on our markers CURRENTLY NOT USED
