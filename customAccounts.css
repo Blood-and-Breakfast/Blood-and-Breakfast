@@ -14,6 +14,7 @@
   webkit-transition: all .2s;
   outline: 0;
   position: absolute;
+  z-index: 999;
   top: 0;
   right: 0;
 }
@@ -173,7 +174,7 @@ Or use it in the provided options flyout, etc */
 }
 
 body .loggedOutOptions {
-  width: 20%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
 }

@@ -3,6 +3,11 @@
     outline: none;
 }
 
+body{
+  overflow: hidden;
+  background-color: black;
+}
+
 #title{
   font-size: 1em;
 }
@@ -49,18 +54,134 @@ box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.49);
   color: white;
   font-size: 1em;
   text-align: center;
-  background-color: #000000;
+  background-color: transparent;
   background-image: none;
   margin-top: 40px;
+  overflow: hidden;
+  position: relative;
+
+}
+
+#leftBG{
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  width: 50%;
+  left: 0px;
+  top: 0px;
+  border-right: 1px solid black;
+  border-bottom: 42px solid black;
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+
+}
+#rightBG{
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  width: 50%;
+  right: 0px;
+  top:0px;
+  border-right: 2px solid black;
+  border-bottom: 42px solid black;
+  border-left: 1px solid black;
+  border-top: 2px solid black;
 }
 
 #loginPage{
+  border: 2px solid black;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
-  vertical-align: middle;
-  height: 100%;
-  width: 100%;
+  height: 80%;
+  width: 74%;
+  margin-top: 8px;
   font-size: 1em;
+  background-color: #454545;
+  max-width: 500px;
+  min-width: 200px;
+  vertical-align: middle;
+  overflow: hidden;
 
+}
+
+#titleImage{
+  display: inline-block;
+  width: 98%;
+  height: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+  background-image: url(./san-francisco-muni-bus.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+}
+
+#stackedOptions{
+  vertical-align: top;
+  display: inline-block;
+  background-color: transparent;
+  width: 98%;
+  margin-top: -24px;
+  height: 40%;
+}
+
+
+html #gameSelect {
+  border: 2px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  height: 92%;
+  width: 74%;
+  font-size: 1em;
+  background-color: #454545;
+  max-width: 500px;
+  min-width: 200px;
+  vertical-align: middle;
+}
+
+#choose{
+  font-size: 1.3em;
+  margin-top: .4em;
+}
+
+@media screen and (max-height: 540px) {
+    #titleImage{
+      width: 50%;
+      height: 98%;
+      float: left;
+      left: 0px;
+    }
+    #stackedOptions{
+      width: 48%;
+      margin-top: 0px;
+    }
+    #loginPage{
+      width: 100%;
+      height: 80%;
+      max-width: 100%;
+    }
+    .headerTitle{
+      font-size: 12px;
+    }
+    html #choose{
+      display: none;
+      color: red;
+    }
+}
+@media screen and (max-height: 768px){
+  html #gameSelect{
+      display: inline-block;
+      width: 100%;
+      height: 80%;
+      max-width: inherit;
+      overflow: visible;
+  }
 }
 
 /*#topBar{
@@ -81,13 +202,7 @@ box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.49);
   width: 70%;
   margin: 0;
 }*/
-#gameSelect{
-  text-align: center;
-  display: inline-block;
-  font-size: 1em;
-  width: 100%;
-  height: 100%;
-}
+
 #sideZombie{
   display: inline-block;
   /*height: 50%;
@@ -106,6 +221,67 @@ box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.49);
   width: 100%;
   height: 100%;
 }
+
+#leaderBoard{
+  display: inline-block;
+  position: fixed;
+  z-index: 1001;
+  width: 80%;
+  height: 80%;
+
+  border: 2px solid black;
+  top: 10%;
+  left: 10%;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+
+
+}
+#leaderTitle{
+  display: inline-block;
+  height: 10%;
+  font-size: 1.75em;
+  width: 100%;
+}
+
+#leaderBoardInner{
+  color: white;
+  font-size: 1.5em;
+  display: inline-block;
+  width: 96%;
+  height: 90%;
+  text-align: left;
+  overflow: scroll;
+  border: 2px solid black;
+  padding: .5em;
+}
+
+html #leaderOL li{
+
+}
+
+html #leaderOL li:nth-child(even).zombies{
+  width: 100%;
+  background-color: #007513;
+}
+
+html #leaderOL li:nth-child(odd).zombies {
+  color: #cbcbcb;
+}
+
+html #leaderOL  li:nth-child(even).vampires{
+  width: 100%;
+  background-color: #750C00;
+}
+
+html #leaderOL  li:nth-child(odd).vampires{
+  color: #cbcbcb;
+}
+
+
 div .zombies{
   background-color: #008513;
 
@@ -138,6 +314,15 @@ button.bite.vampires{
 
 }
 
+@media screen and (max-height: 400px) {
+  html button.bite{
+    position: fixed;
+    margin-top: 0;
+    bottom: 4px;
+    right: 4px;
+  }
+}
+
 button.bite{
   position: relative;
   height: 100px;
@@ -148,8 +333,10 @@ button.bite{
   border: 2.5px double black;
   text-align: center;
   margin-top: -50px;
-  z-index: 1000;
+  z-index: 998;
 }
+
+
 
 button:active{
   -ms-transform: scale(.95); /* IE 9 */
@@ -162,6 +349,7 @@ button:hover{
 }
 
 .playZombies, .playVampires {
+  display: inline-block;
   background-color: #000000;
   border-radius: 10px;
   border-style: solid;
@@ -189,7 +377,18 @@ button img {
 }
 
 #gameSelect {
-  background-color: #000000;
+  border: 2px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  height: 80%;
+  width: 74%;
+  font-size: 1em;
+  background-color: #454545;
+  max-width: 500px;
+  min-width: 200px;
+  vertical-align: middle;
+  overflow: hidden;
 }
 
 .accounts{
@@ -197,8 +396,8 @@ button img {
 }
 
 #top {
-  background-color: #000000;
-  color: #FFFFFF;
+  background-color: #343434;
+  color: #ffffff;
   position: fixed;
   display: inline-block;
   width: 100%;

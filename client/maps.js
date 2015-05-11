@@ -4,7 +4,7 @@ Meteor.startup(function() {
  });
 
 Meteor.subscribe('stops');
-Meteor.subscribe('markers');
+// Meteor.subscribe('markers');
 Meteor.subscribe('routes');
 Meteor.subscribe('players');
 Meteor.subscribe('buses');

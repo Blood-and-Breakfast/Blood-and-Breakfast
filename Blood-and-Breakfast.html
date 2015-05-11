@@ -23,6 +23,7 @@
 </template>
 <template name="everything">
   <div id="main">
+    <div id="leftBG" class="zombies"></div><div id="rightBG" class="vampires"></div>
     {{#if currentUser}}
       {{#if session "team"}}
         {{>gamePlayPage}}
@@ -31,15 +32,20 @@
         {{>gameSelectPage}}
       {{/if}}
     {{else}}
-      {{>loggedOutOptions}}
-      <div id='options-error'></div>
+      <div id="loginPage">
+        <div id="titleImage"></div>
+        <div id="stackedOptions">
+          {{>loggedOutOptions}}
+          <div id='options-error'></div>
+        </div>
+      </div>
     {{/if}}
   </div>
 </template>
 
 <template name="gameSelectPage">
   <div id='gameSelect'>
-    <div><h2>CHOOSE A SIDE</h2></div>
+    <div><div id="choose">CHOOSE A SIDE</div></div>
     <div id="sideVampire">
       <button class="playVampires"><img src='/vampire-256.png'>VAMPIRES</button>
     </div>
@@ -59,10 +65,27 @@
     {{else}}
       BITE PEOPLE
     {{/if}}
-    </button>
 
+    </button>
+    {{#if session "leaderBoardIsOpen"}}
+      {{>leaderBoard}}
+    {{/if}}
+  </div>
+</template>
+
+<template name="leaderBoard">
+  <div id="leaderBoard" class="outerShadow {{session 'team'}}">
+  <div id="leaderTitle">LEADERS</div>
+    <div id="leaderBoardInner" class="">
+      <ol id="leaderOL">
+        {{#each playersByScore}}
+          <li class="{{team}}"><span class="boardName">NAME: {{name}} | </span><span class="boardTeam"> TEAM:{{team}} | </span><span class="boardScore"> SCORE: {{score}}</span></li>
+        {{/each}}
+      </ol>
+    </div>
 
   </div>
+
 </template>
 
 
