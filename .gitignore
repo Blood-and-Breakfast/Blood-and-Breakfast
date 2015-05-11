@@ -2,3 +2,4 @@
 .apitokens
 .floo
 node_modules
+*npm-shrinkwrap.json
