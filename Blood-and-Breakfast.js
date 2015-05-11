@@ -171,7 +171,7 @@ if (Meteor.isClient) {
   });
 }
 
-var delta = 0.05; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
+var delta = 0.07; //WE NEED TO FIGURE OUT THIS DELTA!!!!  (its in km)
 
 var checkUserLoc = function(team, userLat, userLon){
   var playerId = Players.find({userId: Meteor.userId()}).fetch()[0]._id;
@@ -189,7 +189,7 @@ var checkUserLoc = function(team, userLat, userLon){
   else {
     nearBus = true;
   }
-  if (nearBus){
+  if (true){
     // chcek if user is near busStop
     var stops = Stops.find({});
     stops.forEach(function (stop) {
@@ -203,6 +203,7 @@ var checkUserLoc = function(team, userLat, userLon){
           else {
             Stops.update({_id: stop._id}, {$inc: {"zombies": 1}});
           }
+          
         }
         else {
           if (stop["vampires"] === undefined){
