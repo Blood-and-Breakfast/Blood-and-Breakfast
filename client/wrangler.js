@@ -19,7 +19,7 @@ gmaps = {
             map: this.map,
             title: marker.title,
             // animation: google.maps.Animation.DROP,
-            icon: gmaps.chooseMarker(stop)
+            icon: gmaps.chooseMarker(marker)
         });
         this.latLngs.push(gLatLng);
         this.markers.push(gMarker);
@@ -37,12 +37,12 @@ gmaps = {
     //makes individual bus markers red or green based on who controls that bus stop, blue if safe or equal
     chooseMarker: function (stop) {
       var stopUrl;
-      if (!stop.zombie && !stop.vampire || stop.vampire === stop.zombie) {
+      if (!stop.zombies && !stop.vampires || stop.vampires === stop.zombies) {
         stopUrl = './safe-bus-stop.png';
-      } else if (stop.zombie && stop.vampire) {
-        stopUrl = (stop.vampire > stop.zombie) ? './vampire-bus-stop.png' : './zombie-bus-stop.png';
-      } else if (stop.zombie || stop.vampire) {
-        stopUrl = stop.zombie ? './zombie-bus-stop.png' : './vampire-bus-stop.png';
+      } else if (stop.zombies && stop.vampires) {
+        stopUrl = (stop.vampires > stop.zombies) ? './vampire-bus-stop.png' : './zombie-bus-stop.png';
+      } else if (stop.zombies || stop.vampires) {
+        stopUrl = stop.zombies ? './zombie-bus-stop.png' : './vampire-bus-stop.png';
       }
       return stopUrl;
     },

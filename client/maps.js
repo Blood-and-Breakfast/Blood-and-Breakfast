@@ -57,7 +57,8 @@ Template.map.rendered = function() {
             lat: stop.lat,
             lng: stop.lon,
             title: stop.title,
-            icon: './blue-bus-stop.png'
+            vampires: stop.vampires,
+            zombies: stop.zombies
           };
             // check if marker already exists
           if (!gmaps.markerExists('id', objMarker.id))
