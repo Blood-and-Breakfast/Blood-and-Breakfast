@@ -12,15 +12,15 @@ if (Meteor.isClient) {
     //fire this here to get permission to use geoloc in browser
     Geolocation.currentLocation();
     //TEST***
-    for(var i = 0; i < 5; i++){
+    for(var i = 0; i < 1; i++){
         Players.insert({score: Math.round(Math.random() * 100), name: "ZombieAI", team: "zombies"});
         console.log("adding players");
     }
-    for(var i = 0; i < 5; i++){
+    for(var i = 0; i < 1; i++){
         Players.insert({score: Math.round(Math.random() * 100), name: "VampireAI", team: "vampires"});
         console.log("adding players");
     }
-    //END TEST
+    //END TEST 
   });
 
   Deps.autorun(function(){
@@ -72,13 +72,28 @@ if (Meteor.isClient) {
       Session.set("leaderBoardIsOpen", true);
     }
 
-  }
+  };
+
+  Template.header.helpers({
+    playerScore: function () {
+      var player = Players.findOne({userId: Meteor.userId()});
+      console.log('THIS IS THE PLAYER ', player);
+      return player.score || 0;
+    },
+    teamScore: function () {
+      //var team = Players.findOne({userId: Meteor.userId()}).team;
+      var teamPlayers = Players.find({team: Session.get('team')}).fetch();
+      var teamScore = 0;
+      _.each(teamPlayers, function (player) {
+        teamScore += player.score;
+      });
+      return teamScore;
+    }
+  });
 
   //placeholder/testing
   Template.everything.helpers({
-    giraffe: function () {
-      return "Giraffe";
-    },
+    
     teamName: function(){
       return Session.get("team");
     }

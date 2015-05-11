@@ -100,7 +100,7 @@ var queryBuses = function(){
   });
 };
 
-Meteor.setInterval(queryBuses, 60000)
+Meteor.setInterval(queryBuses, 60000);
 
 // var queryBuses = function(){
 /* temporary suppression of bus data fetching from firebase

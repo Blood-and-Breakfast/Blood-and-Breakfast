@@ -15,7 +15,7 @@
   {{>header}}
 </body>
 <template name="header">
-<header id="top"><div class='headerTitle'> BLOOD AND BRAINS BUS BATTLE </div>
+<header id="top"><div class='headerTitle'> BLOOD AND BRAINS BUS BATTLE  |  YOUR SCORE: {{playerScore}}  | TEAM SCORE: {{teamScore}} </div> 
   {{#if currentUser}}
     {{>customOptionsToggle}}
   {{/if}}
