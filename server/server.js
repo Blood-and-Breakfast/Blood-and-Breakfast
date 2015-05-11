@@ -84,6 +84,24 @@ Meteor.startup(function () {
   });
 });
 
+var queryBuses = function(){
+  HTTP.get('http://restbus.info/api/agencies/sf-muni/vehicles', function(error, results){
+    if (!error){
+      Buses.remove({});
+      Buses.insert({apiMarker: true, apiStatus: false});
+      JSON.parse(results.content).forEach( function(element){
+        Buses.insert({lat: element.lat, lon: element.lon});
+      });
+      Buses.update({apiMarker: true}, {$set: {apiStatus: true}});
+    } else {
+      console.log(error);
+      Buses.update({apiMarker: true}, {$set: {apiStatus: false}});
+    }
+  });
+};
+
+Meteor.setInterval(queryBuses, 60000)
+
 // var queryBuses = function(){
 /* temporary suppression of bus data fetching from firebase
 var firebaseRef = new Firebase('https://publicdata-transit.firebaseio.com/');
