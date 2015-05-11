@@ -189,6 +189,7 @@ var checkUserLoc = function(team, userLat, userLon){
   else {
     nearBus = true;
   }
+  // if statement set to always be true; for bus logic to work, replace true with nearBus
   if (true){
     // chcek if user is near busStop
     var stops = Stops.find({});
