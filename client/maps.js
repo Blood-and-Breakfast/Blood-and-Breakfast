@@ -17,14 +17,18 @@ Template.map.rendered = function() {
 
    Session.set('fakePosition', {lat:37.7577, lon:-122.4376});
    //creates a draggable marker
+   var playerIconString = "./player-vampire-bat-icon-v3.png";
+   if(Session.get("isZombie")){
+    playerIconString = "./player-zombie-hand-icon-v2.png";
+   }
     var draggableMarker = new google.maps.Marker({
       draggable: true,
       position: new google.maps.LatLng(37.7577,-122.4376),
       map: gmaps.map,
       title: "Your fake location",
-     // icon: //can change depending on team 
+      icon: playerIconString
     });
-    
+
     //gets the draggable marker's position when done dragging
     google.maps.event.addListener(draggableMarker, 'dragend', function (event) {
       var playerLat = this.getPosition().lat();
@@ -70,7 +74,7 @@ Template.map.rendered = function() {
     });
   });
 }
- 
+
 Template.map.destroyed = function() {
     Session.set('map', false);
 }
