@@ -2,6 +2,8 @@
 
 > Bite your way to the top of the SF food chain!
 
+![Blood and Breakfast Screenshot](readme_assets/zvsvgame.png)
+
 ## Team
 
   - __Product Owner__: Angela Wang
