@@ -2,6 +2,10 @@
 
 > Bite your way to the top of the SF food chain!
 
+![Blood and Breakfast Screenshot](readme_assets/zvsvgame.png)
+
+Our game game uses real-time transit data and geo-location to infect SF Muni buses with zombies and vampires. Try it out on our [Meteor deployment](http://zvsv.meteor.com/).
+
 ## Team
 
   - __Product Owner__: Angela Wang
